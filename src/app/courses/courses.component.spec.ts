@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { CoursesComponent } from './courses.component';
 
@@ -8,6 +9,9 @@ describe('CoursesComponent', () => {
       declarations: [
         CoursesComponent
       ],
+      imports: [
+        FormsModule
+      ]
     }).compileComponents();
   }));
 

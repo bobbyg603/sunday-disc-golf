@@ -10,12 +10,4 @@ export class AppComponent {
   title = 'Sunday Disc Golf';
   players = [];
   currentError = '';
-
-  addPlayer(name) {
-    if(this.players.includes(name)) {
-      this.currentError = name + ' already exists!';
-      return;
-    }
-    this.players.push(name);
-  }
 }

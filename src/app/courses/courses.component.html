@@ -1,16 +1,41 @@
 <h1>{{title}}</h1>
-<input placeholder="Course Name" #courseInput>
-<button class="btn btn-success" (click)="addCourse(courseInput.value)">
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button>
-<button class="btn btn-danger" (click)="removeCourse(courseInput.value)">
-    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-  </button>
+<input placeholder="Course Name" #courseInput> Number of holes:
+<select type="number" [(ngModel)]="hole" (ngModelChange)="updateCourse()">
+  <option *ngFor="let h of holes" [ngValue]="h" [selected]="hole == h">{{h}}</option>
+</select>
+<br/>
+<br/>
+<div *ngIf="hole">
+  <table width="80%">
+    <tr>
+      <td width="10%">
+        <b>Hole</b>
+      </td>
+      <td style="width:5%; font-weight:bold;" *ngFor="let h of currentCourse">
+        {{h.hole}}
+      </td>
+    </tr>
+    <tr>
+      <td width="10%">
+        <b>Par</b>
+      </td>
+      <td width="5%" *ngFor="let h of currentCourse">
+        <input class="form-control" [(ngModel)]="h.par" />
+      </td>
+    </tr>
+  </table>
+</div>
 <br/>
 <span style="color:red">{{currentError}}</span>
 <br/>
+<button class="btn btn-success" (click)="addCourse(courseInput.value)">
+  Save
+</button>
+<button class="btn btn-danger" (click)="removeCourse(courseInput.value)">
+  Delete
+</button>
 <br/>
-
+<br/>
 <ul>
-  <li *ngFor="let course of courses">{{course}}</li>
+  <li *ngFor="let course of courses">{{course.name}} : {{course.holes.length}}</li>
 </ul>
