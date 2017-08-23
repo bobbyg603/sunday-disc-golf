@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  newPlayer = '';
+  title = 'Sunday Disc Golf';
+  players = [];
+  currentError = '';
+
+  addPlayer(name) {
+    if(this.players.includes(name)) {
+      this.currentError = name + ' already exists!';
+      return;
+    }
+    this.players.push(name);
+  }
 }
