@@ -1,18 +1,24 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="container">
-  <h1>
-    {{title}}
-  </h1>
-  <input placeholder="Player Name" #newPlayerInput>
-  <br/>
-  <span style="color:red">{{currentError}}</span>
-  <br/>
-  <br/>
-  <button class="btn-success" (click)="addPlayer(newPlayerInput.value)">(+) Add Player</button>
-  <h2>
-    Players:
-  </h2>
-  <ul>
-    <li *ngFor="let player of players">{{player}}</li>
-  </ul>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        {{title}}
+      </a>
+      <ul class="nav navbar-nav">
+        <li>
+          <a routerLink="/recent" routerLinkActive="active">Recent</a>
+        </li>
+        <li>
+          <a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
+        </li>
+        <li>
+          <a routerLink="/players" routerLinkActive="active">Players</a>
+        </li>
+        <li>
+          <a routerLink="/courses" routerLinkActive="active">Courses</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

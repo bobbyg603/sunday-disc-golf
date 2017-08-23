@@ -1,0 +1,16 @@
+<h1>{{title}}</h1>
+<input placeholder="Player Name" #playerInput>
+<button class="btn btn-success" (click)="addPlayer(playerInput.value)">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+</button>
+<button class="btn btn-danger" (click)="removePlayer(playerInput.value)">
+    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+  </button>
+<br/>
+<span style="color:red">{{currentError}}</span>
+<br/>
+<br/>
+
+<ul>
+  <li *ngFor="let player of players">{{player}}</li>
+</ul>

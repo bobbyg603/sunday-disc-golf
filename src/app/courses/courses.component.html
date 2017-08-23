@@ -1,0 +1,16 @@
+<h1>{{title}}</h1>
+<input placeholder="Course Name" #courseInput>
+<button class="btn btn-success" (click)="addCourse(courseInput.value)">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+</button>
+<button class="btn btn-danger" (click)="removeCourse(courseInput.value)">
+    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+  </button>
+<br/>
+<span style="color:red">{{currentError}}</span>
+<br/>
+<br/>
+
+<ul>
+  <li *ngFor="let course of courses">{{course}}</li>
+</ul>
