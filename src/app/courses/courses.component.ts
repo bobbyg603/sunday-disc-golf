@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from '../entities/course.entity';
+import { Hole } from '../entities/hole.entity';
 
 @Component({
   selector: 'courses-root',
@@ -9,43 +11,41 @@ export class CoursesComponent implements OnInit {
 
   title = 'Courses';
   currentError = '';
-  
-  courses = [];
-  hole: number = 18;
-  holes: Array<number> = [
+  holeSelectOptions: Array<number> = [
     9,
     18
   ];
-
-  currentCourse: Array<Object>;
-
+  
+  currentHoleCount: number = this.holeSelectOptions[1];
+  currentCourse: Course;
+  courses: Array<Course> = new Array<Course>();
+  
   ngOnInit(): void {
     this.updateCourse()
   }
 
   updateCourse() {
-    this.hole = +this.hole;
-    this.currentCourse = new Array<Object>();
-    for (var i = 1; i <= this.hole; i++) {
-      this.currentCourse.push({
-        hole: i,
-        par: 0
-      });
+    this.currentHoleCount = +this.currentHoleCount;
+    const holes = new Array<Hole>();
+    for (var i = 1; i <= this.currentHoleCount; i++) {
+      holes.push(new Hole(i, 0));
     }
+    this.currentCourse = new Course('', holes);
   }
 
   addCourse(name) {
     if (this.courseExists(name)) {
-      this.currentError = name + " already exists!";
+      this.currentError = name + ' already exists!';
       return;
     }
-    this.courses.push({ name, holes: this.currentCourse });
+    this.currentCourse.name = name;
+    this.courses.push(this.currentCourse);
     this.resetCurrentError();
   }
 
   removeCourse(name) {
     if (!this.courseExists(name)) {
-      this.currentError = name + " doesn't exist!";
+      this.currentError = name + ' doesn\'t exist!';
       return;
     }
     this.courses = this.courses.filter(item => item.name !== name);
@@ -57,6 +57,6 @@ export class CoursesComponent implements OnInit {
   }
 
   resetCurrentError() {
-    this.currentError = "";
+    this.currentError = '';
   }
 }

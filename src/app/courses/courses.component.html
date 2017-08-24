@@ -11,16 +11,16 @@
       <td width="10%">
         <b>Hole</b>
       </td>
-      <td style="width:5%; font-weight:bold;" *ngFor="let h of currentCourse">
-        {{h.hole}}
+      <td style="width:5%; font-weight:bold;" *ngFor="let hole of currentCourse.holes">
+        {{hole.number}}
       </td>
     </tr>
     <tr>
       <td width="10%">
         <b>Par</b>
       </td>
-      <td width="5%" *ngFor="let h of currentCourse">
-        <input class="form-control" [(ngModel)]="h.par" />
+      <td width="5%" *ngFor="let hole of currentCourse.holes">
+        <input class="form-control" [(ngModel)]="hole.par" />
       </td>
     </tr>
   </table>

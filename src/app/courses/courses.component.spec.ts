@@ -1,7 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 import { CoursesComponent } from './courses.component';
+import { Course } from '../entities/course.entity';
+import { Hole } from '../entities/hole.entity';
 
 describe('CoursesComponent', () => {
   beforeEach(async(() => {
@@ -33,4 +37,26 @@ describe('CoursesComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Courses');
   }));
+
+  it('should display course list', async(() => {
+    const fixture = TestBed.createComponent(CoursesComponent);
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    const courseName = "Top of the Hill";
+    const holes = createHoleArray();
+    const course = new Course(courseName, holes);
+
+    app.courses.push(course);
+    fixture.detectChanges();
+
+    expect(compiled.querySelector("li").textContent).toContain(courseName + " : " + holes.length);
+  }));
+
+  function createHoleArray(): Array<Hole> {
+    const holes = new Array<Hole>();
+    for(var i = 1; i <= 9; i++) {
+      holes.push(new Hole(i, 3));
+    }
+    return holes;
+  }
 });
