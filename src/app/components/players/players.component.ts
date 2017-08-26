@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Player } from '../../entities/player.entity';
 import { PlayersService } from '../../services/players.service';
 
@@ -7,7 +7,8 @@ import { PlayersService } from '../../services/players.service';
   templateUrl: './players.component.html',
   styleUrls: ['./players.component.css']
 })
-export class PlayersComponent {
+export class PlayersComponent implements OnInit{
+
   title = 'Players';
   
   newPlayer = '';
@@ -15,6 +16,10 @@ export class PlayersComponent {
   currentError = '';
 
   constructor(private playersService: PlayersService) {}
+
+  ngOnInit(): void {
+    this.updatePlayers();
+  }
 
   addPlayer(username, password, firstName, lastName, email, phone, bio) {
     if(this.playerExists(username)) {
@@ -35,8 +40,9 @@ export class PlayersComponent {
     player.email = email;
     player.phone = phone;
     player.bio = bio;
-    this.players.push(player);
+    this.playersService.addPlayer(player);
     this.resetCurrentError();
+    this.updatePlayers();
   }
 
   removePlayer(username) {
@@ -47,8 +53,10 @@ export class PlayersComponent {
       this.currentError = username + " doesn't exist!";
       return;
     }
-    this.players = this.players.filter(item => item.username !== username);
+    const player = this.players.filter(item => item.username == username)[0];
+    this.playersService.removePlayer(player);
     this.resetCurrentError();
+    this.updatePlayers();
   }
 
   playerExists(username) {
@@ -57,5 +65,9 @@ export class PlayersComponent {
 
   resetCurrentError() {
     this.currentError = "";
+  }
+
+  updatePlayers() {
+    this.players = this.playersService.getPlayers();
   }
 }
