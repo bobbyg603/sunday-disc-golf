@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
-
 import { PlayersComponent } from './players.component';
+import { PlayersService } from '../../services/players.service';
 
 describe('PlayersComponent', () => {
   beforeEach(async(() => {
@@ -8,6 +8,9 @@ describe('PlayersComponent', () => {
       declarations: [
         PlayersComponent
       ],
+      providers: [
+        PlayersService
+      ]
     }).compileComponents();
   }));
 
@@ -28,5 +31,25 @@ describe('PlayersComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Players');
+  }));
+
+  it('should display an error if addPlayer is called without a username', async(() => {
+    const fixture = TestBed.createComponent(PlayersComponent);
+    fixture.detectChanges();
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    app.addPlayer("", "", "", "", "", "", "");
+    fixture.detectChanges();
+    expect(compiled.querySelector('#currentError').textContent).toContain('Please enter a username!');
+  }));
+
+  it('should display an error if addPlayer is called without a password', async(() => {
+    const fixture = TestBed.createComponent(PlayersComponent);
+    fixture.detectChanges();
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    app.addPlayer("bobbyg603", "", "", "", "", "", "");
+    fixture.detectChanges();
+    expect(compiled.querySelector('#currentError').textContent).toContain('Please enter a password!');
   }));
 });

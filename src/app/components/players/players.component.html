@@ -32,7 +32,7 @@
       </div>
       <div class="row top-buffer">
         <div class="col-md-12 text-center">
-          <span style="color:red">{{currentError}}</span>
+          <span id="currentError" style="color:red">{{currentError}}</span>
           <br/>
           <button class="btn btn-success" (click)="addPlayer(usernameInput.value, passwordInput.value, firstNameInput.value, lastNameInput.value, emailInput.value, phoneInput.value, bioInput.value)">
             Save
