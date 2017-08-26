@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { PlayersComponent } from './players/players.component';
-import { CoursesComponent } from './courses/courses.component';
-import { CoursesService } from './courses.service';
+import { AppComponent } from './components/app.component';
+import { PlayersComponent } from './components/players/players.component';
+import { CoursesComponent } from './components/courses/courses.component';
+import { CoursesService } from './services/courses.service';
 
 const appRoutes: Routes = [
   { path: 'players', component: PlayersComponent },

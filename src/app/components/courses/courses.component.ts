@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../entities/course.entity';
-import { Hole } from '../entities/hole.entity';
-import { CoursesService } from '../courses.service'
+import { Course } from '../../entities/course.entity';
+import { Hole } from '../../entities/hole.entity';
+import { CoursesService } from '../../services/courses.service'
 
 @Component({
   selector: 'courses-root',

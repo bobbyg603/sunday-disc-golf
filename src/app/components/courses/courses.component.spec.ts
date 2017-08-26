@@ -3,10 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CoursesService } from '../courses.service';
+import { CoursesService } from '../../services/courses.service';
 import { CoursesComponent } from './courses.component';
-import { Course } from '../entities/course.entity';
-import { Hole } from '../entities/hole.entity';
+import { Course } from '../../entities/course.entity';
+import { Hole } from '../../entities/hole.entity';
 
 describe('CoursesComponent', () => {
   beforeEach(async(() => {
