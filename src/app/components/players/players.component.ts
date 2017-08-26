@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Player } from '../../entities/player.entity';
 
 @Component({
   selector: 'players-root',
@@ -12,26 +13,40 @@ export class PlayersComponent {
   players = [];
   currentError = '';
 
-  addPlayer(name) {
-    if(this.playerExists(name)) {
-      this.currentError = name + " already exists!";
+  addPlayer(username, password, firstName, lastName, email, phone, bio) {
+    if(this.playerExists(username)) {
+      this.currentError = username + " already exists!";
       return;
     }
-    this.players.push(name);
+    if(username == "") {
+      this.currentError = "Please enter a username!";
+      return;
+    }
+    if(password == "") {
+      this.currentError = "Please enter a password!";
+      return;
+    }
+    const player = new Player(username, password);
+    player.firstName = firstName;
+    player.lastName = lastName;
+    player.email = email;
+    player.phone = phone;
+    player.bio = bio;
+    this.players.push(player);
     this.resetCurrentError();
   }
 
-  removePlayer(name) {
-    if(!this.playerExists(name)) {
-      this.currentError = name + " doesn't exist!";
+  removePlayer(username) {
+    if(!this.playerExists(username)) {
+      this.currentError = username + " doesn't exist!";
       return;
     }
-    this.players = this.players.filter(item => item !== name);
+    this.players = this.players.filter(item => item.username !== username);
     this.resetCurrentError();
   }
 
-  playerExists(name) {
-    return this.players.includes(name);
+  playerExists(username) {
+    return this.players.filter(item => item.username == username).length >= 1;
   }
 
   resetCurrentError() {

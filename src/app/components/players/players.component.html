@@ -1,16 +1,50 @@
-<h1>{{title}}</h1>
-<input placeholder="Player Name" #playerInput>
-<button class="btn btn-success" (click)="addPlayer(playerInput.value)">
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button>
-<button class="btn btn-danger" (click)="removePlayer(playerInput.value)">
-    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-  </button>
-<br/>
-<span style="color:red">{{currentError}}</span>
-<br/>
-<br/>
-
-<ul>
-  <li *ngFor="let player of players">{{player}}</li>
-</ul>
+<div class="container-fluid">
+  <h1>{{title}}</h1>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>Username:</b></div>
+        <div class="col-md-11"><input class="form-control" #usernameInput></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>Password:</b></div>
+        <div class="col-md-11"><input class="form-control" #passwordInput></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>First Name:</b></div>
+        <div class="col-md-11"><input class="form-control" #firstNameInput></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>Last Name:</b></div>
+        <div class="col-md-11"><input class="form-control" #lastNameInput></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>Email:</b></div>
+        <div class="col-md-11"><input class="form-control" #emailInput></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>Phone:</b></div>
+        <div class="col-md-11"><input class="form-control" #phoneInput></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-1"><b>Bio:</b></div>
+        <div class="col-md-11"><textarea class="form-control" #bioInput></textarea></div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-md-12 text-center">
+          <span style="color:red">{{currentError}}</span>
+          <br/>
+          <button class="btn btn-success" (click)="addPlayer(usernameInput.value, passwordInput.value, firstNameInput.value, lastNameInput.value, emailInput.value, phoneInput.value, bioInput.value)">
+            Save
+          </button>
+          <button class="btn btn-danger" (click)="removePlayer(usernameInput.value)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul>
+    <li *ngFor="let player of players">{{player.username}}</li>
+  </ul>
+</div>
