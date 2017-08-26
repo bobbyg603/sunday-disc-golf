@@ -52,4 +52,15 @@ describe('PlayersComponent', () => {
     fixture.detectChanges();
     expect(compiled.querySelector('#currentError').textContent).toContain('Please enter a password!');
   }));
+
+  it('should display an error if removePlayer is called without a name', async(() => {
+    const fixture = TestBed.createComponent(PlayersComponent);
+    fixture.detectChanges();
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    const username = "bobbyg603";
+    app.removePlayer(username);
+    fixture.detectChanges();
+    expect(compiled.querySelector('#currentError').textContent).toContain(username + " doesn't exist!");
+  }));
 });
