@@ -50,6 +50,14 @@ export class CoursesComponent implements OnInit {
       this.currentError = name + ' already exists!';
       return;
     }
+    if (this.currentCourse.holes.filter(hole => hole.distance == 0).length >= 1) {
+      this.currentError = "Invalid distance value!"
+      return;
+    }
+    if (this.currentCourse.holes.filter(hole => hole.par == 0).length >= 1) {
+      this.currentError = "Invalid par value!";
+      return;
+    }
     this.currentCourse.name = name;
     this.coursesService.addCourse(this.currentCourse);
     this.resetCurrentError();

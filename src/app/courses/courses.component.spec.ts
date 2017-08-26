@@ -90,6 +90,34 @@ describe('CoursesComponent', () => {
     expect(compiled.querySelector("#currentError").textContent).toContain(courseName + " doesn't exist!");
   }));
 
+  it('should display an error if any distance values equal 0', async(() => {
+    const fixture = TestBed.createComponent(CoursesComponent);
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    const courseName = "Top of the Hill";
+    const holes = [ new Hole(1, 3, 0) ];
+    const course = new Course(courseName, holes);
+
+    app.currentCourse = course;
+    app.addCourse(course.name);
+    fixture.detectChanges();
+    expect(compiled.querySelector("#currentError").textContent).toContain("Invalid distance value!");
+  }));
+
+  it('should display an error if any par values equal 0', async(() => {
+    const fixture = TestBed.createComponent(CoursesComponent);
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    const courseName = "Top of the Hill";
+    const holes = [ new Hole(1, 0, 100) ];
+    const course = new Course(courseName, holes);
+
+    app.currentCourse = course;
+    app.addCourse(course.name);
+    fixture.detectChanges();
+    expect(compiled.querySelector("#currentError").textContent).toContain("Invalid par value!");
+  }));
+
   function createHoleArray(numberOfHoles: Number): Array<Hole> {
     const holes = new Array<Hole>();
     for(var i = 1; i <= numberOfHoles; i++) {
