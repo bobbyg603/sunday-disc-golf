@@ -33,8 +33,8 @@ describe('CoursesComponent', () => {
 
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(CoursesComponent);
-    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
+    fixture.detectChanges();
     expect(compiled.querySelector('h1').textContent).toContain('Courses');
   }));
 
@@ -48,8 +48,41 @@ describe('CoursesComponent', () => {
 
     app.courses.push(course);
     fixture.detectChanges();
-
     expect(compiled.querySelector("li").textContent).toContain(courseName + " : " + holes.length);
+  }));
+
+  it('should remove course if removeCourse is called with a valid course name', async(() => {
+    const fixture = TestBed.createComponent(CoursesComponent);
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    const courseName = "Top of the Hill";
+    const holes = createHoleArray();
+    const course = new Course(courseName, holes);
+
+    app.courses.push(course);
+    app.removeCourse(courseName);
+    expect(app.courses.length).toEqual(0);
+  }));
+
+  it('should display an error if addCourse is called with empty name', async(() => {
+    const fixture = TestBed.createComponent(CoursesComponent);
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    
+    app.addCourse("");
+    fixture.detectChanges();
+    expect(compiled.querySelector("#currentError").textContent).toContain("Course name can't be empty!");
+  }));
+
+  it('should display an error if removeCourse is called with course name that does not exist', async(() => {
+    const fixture = TestBed.createComponent(CoursesComponent);
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    const courseName = "Henniker";
+    
+    app.removeCourse(courseName);
+    fixture.detectChanges();
+    expect(compiled.querySelector("#currentError").textContent).toContain(courseName + " doesn't exist!");
   }));
 
   function createHoleArray(): Array<Hole> {
