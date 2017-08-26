@@ -1,0 +1,29 @@
+.text-align-center {
+    text-align: center
+}
+
+.course-table-9-hole {
+    width: 50%
+}
+
+.course-table-18-hole {
+    width: 100%
+}
+
+.course-table-row {
+    height: 30em
+}
+
+.course-table-header {
+    width: 15em
+}
+
+.course-table-cell {
+    width: auto
+}
+
+.clearfix:after { content: "\00A0"; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;}  
+.clearfix{ display: inline-block;}  
+html[xmlns] .clearfix { display: block;}  
+* html .clearfix{ height: 1%;}  
+.clearfix {display: block}  

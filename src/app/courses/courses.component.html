@@ -1,41 +1,59 @@
-<h1>{{title}}</h1>
-<input placeholder="Course Name" #courseInput> Number of holes:
-<select type="number" [(ngModel)]="hole" (ngModelChange)="updateCourse()">
-  <option *ngFor="let h of holes" [ngValue]="h" [selected]="hole == h">{{h}}</option>
-</select>
-<br/>
-<br/>
-<div *ngIf="hole">
-  <table width="80%">
-    <tr>
-      <td width="10%">
-        <b>Hole</b>
-      </td>
-      <td style="width:5%; font-weight:bold;" *ngFor="let hole of currentCourse.holes">
-        {{hole.number}}
-      </td>
-    </tr>
-    <tr>
-      <td width="10%">
-        <b>Par</b>
-      </td>
-      <td width="5%" *ngFor="let hole of currentCourse.holes">
-        <input class="form-control" [(ngModel)]="hole.par" />
-      </td>
-    </tr>
-  </table>
+<div class="container-fluid">
+  <h1>{{title}}</h1>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-12">
+          <input placeholder="Course Name" #courseInput>
+          <select type="number" [(ngModel)]="currentHoleCount" (ngModelChange)="updateCourse()">
+            <option *ngFor="let hole of holeSelectOptions" [ngValue]="hole" [selected]="currentHoleCount == hole">{{hole}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" style="clear:both">
+      <table>
+        <tr height="30px">
+          <td class="course-table-header">
+            <b>Distance</b>
+          </td>
+          <td class="course-table-cell" *ngFor="let hole of currentCourse.holes">
+            <input class="form-control text-align-center" [(ngModel)]="hole.distance" />
+          </td>
+        </tr>
+        <tr height="30px">
+          <td class="course-table-header">
+            <b>Hole</b>
+          </td>
+          <td class="couse-table-cell text-align-center" *ngFor="let hole of currentCourse.holes">
+            <b>{{hole.number}}</b>
+          </td>
+        </tr>
+        <tr height="30px">
+          <td class="course-table-header">
+            <b>Par</b>
+          </td>
+          <td class="course-table-cell" *ngFor="let hole of currentCourse.holes">
+            <input class="form-control text-align-center" [(ngModel)]="hole.par" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="text-align: center">
+      <span style="color:red">{{currentError}}</span>
+      <br/>
+      <button class="btn btn-success" (click)="addCourse(courseInput.value)">
+      Save
+    </button>
+      <button class="btn btn-danger" (click)="removeCourse(courseInput.value)">
+      Delete
+    </button>
+    </div>
+    <br/>
+  </div>
+  <br/>
+  <br/>
+  <ul>
+    <li *ngFor="let course of courses">{{course.name}} : {{course.holes.length}}</li>
+  </ul>
 </div>
-<br/>
-<span style="color:red">{{currentError}}</span>
-<br/>
-<button class="btn btn-success" (click)="addCourse(courseInput.value)">
-  Save
-</button>
-<button class="btn btn-danger" (click)="removeCourse(courseInput.value)">
-  Delete
-</button>
-<br/>
-<br/>
-<ul>
-  <li *ngFor="let course of courses">{{course.name}} : {{course.holes.length}}</li>
-</ul>

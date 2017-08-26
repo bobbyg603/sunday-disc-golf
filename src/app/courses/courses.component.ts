@@ -28,12 +28,16 @@ export class CoursesComponent implements OnInit {
     this.currentHoleCount = +this.currentHoleCount;
     const holes = new Array<Hole>();
     for (var i = 1; i <= this.currentHoleCount; i++) {
-      holes.push(new Hole(i, 0));
+      holes.push(new Hole(i, 0, 0));
     }
     this.currentCourse = new Course('', holes);
   }
 
   addCourse(name) {
+    if (name === "") {
+      this.currentError = "Course name can't be empty!";
+      return
+    }
     if (this.courseExists(name)) {
       this.currentError = name + ' already exists!';
       return;
@@ -44,6 +48,9 @@ export class CoursesComponent implements OnInit {
   }
 
   removeCourse(name) {
+    if (name === "") {
+      return;
+    }
     if (!this.courseExists(name)) {
       this.currentError = name + ' doesn\'t exist!';
       return;

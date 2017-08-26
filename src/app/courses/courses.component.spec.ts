@@ -55,7 +55,7 @@ describe('CoursesComponent', () => {
   function createHoleArray(): Array<Hole> {
     const holes = new Array<Hole>();
     for(var i = 1; i <= 9; i++) {
-      holes.push(new Hole(i, 3));
+      holes.push(new Hole(i, 3, 300));
     }
     return holes;
   }
