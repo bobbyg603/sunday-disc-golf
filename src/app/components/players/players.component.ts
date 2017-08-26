@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Player } from '../../entities/player.entity';
+import { PlayersService } from '../../services/players.service';
 
 @Component({
   selector: 'players-root',
@@ -12,6 +13,8 @@ export class PlayersComponent {
   newPlayer = '';
   players = [];
   currentError = '';
+
+  constructor(private playersService: PlayersService) {}
 
   addPlayer(username, password, firstName, lastName, email, phone, bio) {
     if(this.playerExists(username)) {
@@ -37,6 +40,9 @@ export class PlayersComponent {
   }
 
   removePlayer(username) {
+    if(username == '') {
+      return;
+    }
     if(!this.playerExists(username)) {
       this.currentError = username + " doesn't exist!";
       return;

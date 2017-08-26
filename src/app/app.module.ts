@@ -7,6 +7,7 @@ import { AppComponent } from './components/app.component';
 import { PlayersComponent } from './components/players/players.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CoursesService } from './services/courses.service';
+import { PlayersService } from './services/players.service';
 
 const appRoutes: Routes = [
   { path: 'players', component: PlayersComponent },
@@ -27,7 +28,10 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule
   ],
-  providers: [CoursesService],
+  providers: [
+    CoursesService,
+    PlayersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
