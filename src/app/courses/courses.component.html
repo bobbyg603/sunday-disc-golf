@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-12">
           <input placeholder="Course Name" #courseInput>
-          <select type="number" [(ngModel)]="currentHoleCount" (ngModelChange)="updateCourse()">
+          <select type="number" [(ngModel)]="currentHoleCount" (ngModelChange)="updateCurrentCourse()">
             <option *ngFor="let hole of holeSelectOptions" [ngValue]="hole" [selected]="currentHoleCount == hole">{{hole}}</option>
           </select>
         </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../entities/course.entity';
 import { Hole } from '../entities/hole.entity';
+import { CoursesService } from '../courses.service'
 
 @Component({
   selector: 'courses-root',
@@ -20,17 +21,24 @@ export class CoursesComponent implements OnInit {
   currentCourse: Course;
   courses: Array<Course> = new Array<Course>();
   
+  constructor(private coursesService: CoursesService) { }
+
   ngOnInit(): void {
-    this.updateCourse()
+    this.updateCurrentCourse();
+    this.updateCourses();
   }
 
-  updateCourse() {
+  updateCurrentCourse() {
     this.currentHoleCount = +this.currentHoleCount;
     const holes = new Array<Hole>();
     for (var i = 1; i <= this.currentHoleCount; i++) {
       holes.push(new Hole(i, 0, 0));
     }
     this.currentCourse = new Course('', holes);
+  }
+
+  updateCourses() {
+    this.courses = this.coursesService.getCourses();
   }
 
   addCourse(name) {
@@ -43,8 +51,9 @@ export class CoursesComponent implements OnInit {
       return;
     }
     this.currentCourse.name = name;
-    this.courses.push(this.currentCourse);
+    this.coursesService.addCourse(this.currentCourse);
     this.resetCurrentError();
+    this.updateCourses();
   }
 
   removeCourse(name) {
@@ -55,8 +64,9 @@ export class CoursesComponent implements OnInit {
       this.currentError = name + ' doesn\'t exist!';
       return;
     }
-    this.courses = this.courses.filter(item => item.name !== name);
+    this.coursesService.removeCourse(this.currentCourse);
     this.resetCurrentError();
+    this.updateCourses();
   }
 
   courseExists(name) {

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
+import { CoursesService } from '../courses.service';
 import { CoursesComponent } from './courses.component';
 import { Course } from '../entities/course.entity';
 import { Hole } from '../entities/hole.entity';
@@ -15,6 +16,9 @@ describe('CoursesComponent', () => {
       ],
       imports: [
         FormsModule
+      ],
+      providers: [
+        CoursesService
       ]
     }).compileComponents();
   }));
@@ -43,10 +47,11 @@ describe('CoursesComponent', () => {
     const app = fixture.debugElement.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
     const courseName = "Top of the Hill";
-    const holes = createHoleArray();
+    const holes = createHoleArray(18);
     const course = new Course(courseName, holes);
 
-    app.courses.push(course);
+    app.currentCourse = course;
+    app.addCourse(course.name);
     fixture.detectChanges();
     expect(compiled.querySelector("li").textContent).toContain(courseName + " : " + holes.length);
   }));
@@ -56,7 +61,7 @@ describe('CoursesComponent', () => {
     const app = fixture.debugElement.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
     const courseName = "Top of the Hill";
-    const holes = createHoleArray();
+    const holes = createHoleArray(18);
     const course = new Course(courseName, holes);
 
     app.courses.push(course);
@@ -85,9 +90,9 @@ describe('CoursesComponent', () => {
     expect(compiled.querySelector("#currentError").textContent).toContain(courseName + " doesn't exist!");
   }));
 
-  function createHoleArray(): Array<Hole> {
+  function createHoleArray(numberOfHoles: Number): Array<Hole> {
     const holes = new Array<Hole>();
-    for(var i = 1; i <= 9; i++) {
+    for(var i = 1; i <= numberOfHoles; i++) {
       holes.push(new Hole(i, 3, 300));
     }
     return holes;
