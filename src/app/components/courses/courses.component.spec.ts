@@ -8,6 +8,10 @@ import { CoursesComponent } from './courses.component';
 import { Course } from '../../entities/course.entity';
 import { Hole } from '../../entities/hole.entity';
 
+class MockCourseService extends CoursesService {
+  courses = [];
+}
+
 describe('CoursesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,7 +22,7 @@ describe('CoursesComponent', () => {
         FormsModule
       ],
       providers: [
-        CoursesService
+        { provide: CoursesService, useClass: MockCourseService }
       ]
     }).compileComponents();
   }));

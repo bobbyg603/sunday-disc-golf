@@ -6,7 +6,11 @@ export class PlayersService {
 
   players: Array<Player> = new Array<Player>();
 
-  constructor() { }
+  constructor() {
+    // TODO BG remove
+    this.players.push(new Player("bobbyg603", "password"));
+    this.players.push(new Player("lil jake", "password"));
+  }
 
   addPlayer(player: Player) {
     this.players.push(player);

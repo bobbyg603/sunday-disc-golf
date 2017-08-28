@@ -13,7 +13,7 @@
     </div>
     <div class="panel-body">
       <table>
-        <tr height="30px">
+        <tr class="course-table-row">
           <td class="course-table-header">
             <b>Distance</b>
           </td>
@@ -21,7 +21,7 @@
             <input class="form-control text-align-center" [(ngModel)]="hole.distance" />
           </td>
         </tr>
-        <tr height="30px">
+        <tr class="course-table-row">
           <td class="course-table-header">
             <b>Hole</b>
           </td>
@@ -29,7 +29,7 @@
             <b>{{hole.number}}</b>
           </td>
         </tr>
-        <tr height="30px">
+        <tr class="course-table-row">
           <td class="course-table-header">
             <b>Par</b>
           </td>
@@ -39,7 +39,7 @@
         </tr>
       </table>
     </div>
-    <div style="text-align: center">
+    <div class="text-align-center">
       <span id="currentError" style="color:red">{{currentError}}</span>
       <br/>
       <button class="btn btn-success" (click)="addCourse(courseInput.value)">

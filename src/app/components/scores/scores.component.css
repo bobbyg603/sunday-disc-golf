@@ -16,7 +16,8 @@
 }
 
 .course-table-header {
-    width: 15em
+    width: 15em;
+    font-weight: bold;
 }
 
 .course-table-cell {

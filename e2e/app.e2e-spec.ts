@@ -21,12 +21,18 @@ describe('sundaydiscgolf App', () => {
   it('should navigate to the players page', () => {
     page.navigateTo();
     element(By.linkText("Players")).click();
-    expect(page.getParagraphText()).toContain("Players");
+    expect(element(By.css("h1")).getText()).toContain("Players");
   });
 
   it('should navigate to the courses page', () => {
     page.navigateTo();
     element(By.linkText("Courses")).click();
-    expect(page.getParagraphText()).toContain("Courses");
+    expect(element(By.css("h1")).getText()).toContain("Courses");
   });
+
+  it('should navigate to the scores page', () => {
+    page.navigateTo();
+    element(By.linkText("Scores")).click();
+    expect(element(By.css("h1")).getText()).toContain("Scores");
+  })
 });

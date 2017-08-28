@@ -2,6 +2,10 @@ import { TestBed, async } from '@angular/core/testing';
 import { PlayersComponent } from './players.component';
 import { PlayersService } from '../../services/players.service';
 
+class MockPlayersService extends PlayersService {
+  players = [];
+}
+
 describe('PlayersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -9,7 +13,7 @@ describe('PlayersComponent', () => {
         PlayersComponent
       ],
       providers: [
-        PlayersService
+        { provide: PlayersService, useClass: MockPlayersService }
       ]
     }).compileComponents();
   }));
@@ -53,7 +57,7 @@ describe('PlayersComponent', () => {
     expect(compiled.querySelector('#currentError').textContent).toContain('Please enter a password!');
   }));
 
-  it('should display an error if removePlayer is called without a name', async(() => {
+  it('should display an error if removePlayer is called with a username that does not exist', async(() => {
     const fixture = TestBed.createComponent(PlayersComponent);
     fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;

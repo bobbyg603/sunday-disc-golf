@@ -4,21 +4,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './components/app.component';
-import { PlayersComponent } from './components/players/players.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { PlayersComponent } from './components/players/players.component';
+import { ScoresComponent } from './components/scores/scores.component';
 import { CoursesService } from './services/courses.service';
 import { PlayersService } from './services/players.service';
 
 const appRoutes: Routes = [
-  { path: 'players', component: PlayersComponent },
   { path: 'courses', component: CoursesComponent },
+  { path: 'players', component: PlayersComponent },
+  { path: 'scores', component: ScoresComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     PlayersComponent,
-    CoursesComponent
+    CoursesComponent,
+    ScoresComponent
   ],
   imports: [
     RouterModule.forRoot(
