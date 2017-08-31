@@ -53,7 +53,40 @@
   </div>
   <br/>
   <br/>
-  <ul>
-    <li *ngFor="let course of courses">{{course.name}} : {{course.holes.length}}</li>
-  </ul>
+  <div *ngFor="let course of courses">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <b>{{course.name}}</b>
+      </div>
+      <div class="panel-body">
+        <!-- TODO BG make directive? -->
+        <table style="width:100%">
+          <tr class="course-table-row">
+            <td class="course-table-header">
+              <b>Distance</b>
+            </td>
+            <td class="course-table-cell text-align-center" *ngFor="let hole of course.holes">
+              <b>{{hole.distance}}</b>
+            </td>
+          </tr>
+          <tr class="course-table-row">
+            <td class="course-table-header">
+              <b>Hole</b>
+            </td>
+            <td class="couse-table-cell text-align-center" *ngFor="let hole of course.holes">
+              <b>{{hole.number}}</b>
+            </td>
+          </tr>
+          <tr class="course-table-row">
+            <td class="course-table-header">
+              <b>Par</b>
+            </td>
+            <td class="course-table-cell text-align-center" *ngFor="let hole of course.holes">
+              <b>{{hole.par}}</b>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
