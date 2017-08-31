@@ -10,6 +10,7 @@ import { PlayersService } from '../../services/players.service';
 import { Player } from "../../entities/player.entity";
 import { Score } from "../../entities/score.entity";
 import { Scorecard } from "../../entities/scorecard.entity";
+import { ScorecardComponent } from "../../components/scorecard/scorecard.component";
 
 class MockPlayersService extends PlayersService {
   players = [];
@@ -25,7 +26,10 @@ describe('ScoresComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScoresComponent ],
+      declarations: [
+        ScoresComponent,
+        ScorecardComponent
+      ],
       imports: [ FormsModule ],
       providers: [
         { provide: CoursesService, useClass: MockCoursesService },
@@ -61,22 +65,6 @@ describe('ScoresComponent', () => {
     expect(scorecardTable.textContent).toContain(holeDistance);
   }));
 
-  it('should display players', async(() => {
-    const compiled = fixture.debugElement.nativeElement;
-    const holeNumber = 1;
-    const holePar = 3;
-    const holeDistance = 300;
-    const holes = createFakeHoles(18, holePar, holeDistance);
-    const playerUsername = "bobbyg603";
-    const playerPassword = "password";
-    const player = createFakePlayer(playerUsername, playerPassword);
-    component.selectedCourse = createFakeCourse("foobar international", holes);
-    component.currentScorecard = createFakeScorecard(component.selectedCourse);
-    component.currentScorecard.scores.push([createFakeScore(player, holes[0], 3)]);
-    fixture.detectChanges();
-    expect(compiled.querySelector("table").textContent).toContain(playerUsername);
-  }));
-
   it('should display a list of available courses', async(() => {
     const compiled = fixture.debugElement.nativeElement;
     const courseSelectElement = compiled.querySelector("#courseSelect");
@@ -103,6 +91,7 @@ describe('ScoresComponent', () => {
     expect(playerSelectElement.textContent).toContain(players[1].username);
   }));
 
+  // TODO BG move to common test item factory area
   function createFakeCourse(name, holes) : Course {
     return new Course(name, holes);
   }

@@ -9,6 +9,7 @@ import { PlayersComponent } from './components/players/players.component';
 import { ScoresComponent } from './components/scores/scores.component';
 import { CoursesService } from './services/courses.service';
 import { PlayersService } from './services/players.service';
+import { ScorecardComponent } from './components/scorecard/scorecard.component';
 
 const appRoutes: Routes = [
   { path: 'courses', component: CoursesComponent },
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
     AppComponent,
     PlayersComponent,
     CoursesComponent,
-    ScoresComponent
+    ScoresComponent,
+    ScorecardComponent
   ],
   imports: [
     RouterModule.forRoot(

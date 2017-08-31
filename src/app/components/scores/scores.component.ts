@@ -33,6 +33,11 @@ export class ScoresComponent implements OnInit {
     this.updateCurrentCourse();
   }
 
+  getPlayerIndex(player) {
+    const playerScore = this.currentScorecard.scores.filter(item => item[0].player == player)[0];
+    return this.currentScorecard.scores.indexOf(playerScore);
+  }
+
   resetAvailablePlayers() {
     this.availablePlayers = this.playersService.getPlayers();
   }

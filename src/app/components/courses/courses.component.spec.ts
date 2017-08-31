@@ -5,6 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { CoursesService } from '../../services/courses.service';
 import { CoursesComponent } from './courses.component';
+import { ScorecardComponent } from '../scorecard/scorecard.component';
 import { Course } from '../../entities/course.entity';
 import { Hole } from '../../entities/hole.entity';
 
@@ -16,7 +17,8 @@ describe('CoursesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CoursesComponent
+        CoursesComponent,
+        ScorecardComponent
       ],
       imports: [
         FormsModule
@@ -46,18 +48,18 @@ describe('CoursesComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Courses');
   }));
 
-  it('should display course list', async(() => {
+  it('should add course to currentCourses when addCourse is called with a valid course name', async(() => {
     const fixture = TestBed.createComponent(CoursesComponent);
     const app = fixture.debugElement.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
     const courseName = "Top of the Hill";
     const holes = createHoleArray(18);
-    const course = new Course(courseName, holes);
+    const newCourse = new Course(courseName, holes);
 
-    app.currentCourse = course;
-    app.addCourse(course.name);
+    app.currentCourse = newCourse;
+    app.addCourse(newCourse.name);
     fixture.detectChanges();
-    expect(compiled.querySelector("li").textContent).toContain(courseName + " : " + holes.length);
+    expect(app.courses.filter(course => course.name == newCourse.name).length).toBe(1);
   }));
 
   it('should remove course if removeCourse is called with a valid course name', async(() => {
