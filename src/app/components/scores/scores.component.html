@@ -24,7 +24,8 @@
           <tr class="course-table-row" *ngFor="let player of getCurrentPlayers()">
             <td class="course-table-header">{{player.username}}</td>
             <td class="course-table-cell text-align-center" *ngFor="let hole of currentScorecard.course.holes">
-              <input class="form-control text-align-center">
+              <!-- TODO BG yikes -->
+              <input [(ngModel)]="currentScorecard.scores[getPlayerIndex(player)][hole.number-1].score" class="form-control text-align-center">
             </td>
           </tr>
         </table>
@@ -40,8 +41,6 @@
     </div>
   </div>
   <div>
-    <ul>
-      <li *ngFor="let scorecard of scorecards">{{scorecard.course.name}}</li>
-    </ul>
+    <app-scorecard *ngFor="let scorecard of scorecards" [course]="scorecard.course" [scores]="scorecard.scores"></app-scorecard>
   </div>
 </div>

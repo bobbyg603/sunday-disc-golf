@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+.text-align-center {
+    text-align: center
+}
+
+.course-table-9-hole {
+    width: 50%
+}
+
+.course-table-18-hole {
+    width: 100%
+}
+
+.course-table-row {
+    height: 3em
+}
+
+.course-table-header {
+    width: 15em;
+    font-weight: bold;
+}
+
+.course-table-cell {
+    width: auto
+}
