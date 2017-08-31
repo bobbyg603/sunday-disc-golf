@@ -44,7 +44,16 @@
       </div>
     </div>
   </div>
-  <ul>
-    <li *ngFor="let player of players">{{player.username}}</li>
-  </ul>
+  <div *ngFor="let player of players">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <b>{{player.username}}</b>
+      </div>
+      <div class="panel-body">
+        <b>Name:</b> {{player.firstName}} {{player.lastName}}<br/>
+        <b>Email:</b> {{player.email}}<br/>
+        <b>Phone:</b> {{player.phone}}<br/>
+        <b>Bio:</b> {{player.bio}}<br/>
+    </div>
+  </div>
 </div>

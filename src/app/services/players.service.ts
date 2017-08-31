@@ -8,8 +8,20 @@ export class PlayersService {
 
   constructor() {
     // TODO BG remove
-    this.players.push(new Player("bobbyg603", "password"));
-    this.players.push(new Player("lil jake", "password"));
+    const bobby = new Player("bobbyg603", "password");
+    bobby.email = "bobbyg603@gmail.com";
+    bobby.firstName = "bobby";
+    bobby.lastName = "galli";
+    bobby.phone = "999-999-9999";
+    bobby.bio = "the best ever";
+    const jake = new Player("lil jake", "password");
+    jake.email = "jake@gmail.com";
+    jake.firstName = "Jacob";
+    jake.lastName = "Poirier";
+    jake.phone = "555-555-5555";
+    jake.bio = "also the best ever";
+    this.players.push(bobby);
+    this.players.push(jake);
   }
 
   addPlayer(player: Player) {
