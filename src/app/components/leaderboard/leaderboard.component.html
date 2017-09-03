@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>{{title}}</h1>
+  <div *ngFor="let statistic of statistics" class="panel panel-default">
+    <div class="panel-heading">
+      <b>{{statistic.title}}</b>
+    </div>
+    <div class="panel-body">
+      <ol>
+        <li *ngFor="let row of statistic.getRowsDescending()">
+          <div class="col-md-2">{{row.player.username}}</div>
+          <div class="col-md-2">{{row.value}}</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

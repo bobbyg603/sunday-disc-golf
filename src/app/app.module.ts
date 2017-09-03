@@ -10,8 +10,11 @@ import { ScoresComponent } from './components/scores/scores.component';
 import { CoursesService } from './services/courses.service';
 import { PlayersService } from './services/players.service';
 import { ScorecardComponent } from './components/scorecard/scorecard.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/scores', pathMatch: 'full' },
+  { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'players', component: PlayersComponent },
   { path: 'scores', component: ScoresComponent }
@@ -23,7 +26,8 @@ const appRoutes: Routes = [
     PlayersComponent,
     CoursesComponent,
     ScoresComponent,
-    ScorecardComponent
+    ScorecardComponent,
+    LeaderboardComponent
   ],
   imports: [
     RouterModule.forRoot(
