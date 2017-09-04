@@ -4,7 +4,7 @@ import { ScorecardComponent } from './scorecard.component';
 import { Course } from "../../entities/course.entity";
 import { Hole } from "../../entities/hole.entity";
 import { Score } from "../../entities/score.entity";
-import { Scorecard } from "../../entities/scorecard.entity";
+import { Scorecard, PlayerScoresMap } from "../../entities/scorecard.entity";
 import { Player } from "../../entities/player.entity";
 
 describe('ScorecardComponent', () => {
@@ -22,7 +22,7 @@ describe('ScorecardComponent', () => {
     fixture = TestBed.createComponent(ScorecardComponent);
     component = fixture.componentInstance;
     component.course = new Course("foobar international", new Array<Hole>());
-    component.scores = new Array<Array<Score>>();
+    component.scores = new Array<PlayerScoresMap>();
     fixture.detectChanges();
   });
 
@@ -42,7 +42,7 @@ describe('ScorecardComponent', () => {
     const fakeCourse = createFakeCourse("foobar international", holes);
     const fakeScores = createFakeScores(fakePlayer, 18);
     component.course = fakeCourse;
-    component.scores = [fakeScores];
+    component.scores = [new PlayerScoresMap(fakePlayer, fakeScores)];
     component.resetScorecard();
     fixture.detectChanges();
     expect(compiled.querySelector("table").textContent).toContain(fakePlayer.username);
@@ -78,6 +78,6 @@ describe('ScorecardComponent', () => {
   }
 
   function createFakeScorecard(course) {
-    return new Scorecard(course, new Array<Array<Score>>());
+    return new Scorecard(course, []);
   }
 });

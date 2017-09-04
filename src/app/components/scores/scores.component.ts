@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../entities/course.entity';
 import { Player } from '../../entities/player.entity';
 import { Score } from '../../entities/score.entity';
-import { Scorecard } from '../../entities/scorecard.entity';
+import { Scorecard, PlayerScoresMap } from '../../entities/scorecard.entity';
 import { CoursesService } from '../../services/courses.service';
 import { PlayersService } from '../../services/players.service';
 
@@ -33,11 +33,6 @@ export class ScoresComponent implements OnInit {
     this.updateCurrentCourse();
   }
 
-  getPlayerIndex(player) {
-    const playerScore = this.currentScorecard.scores.filter(item => item[0].player == player)[0];
-    return this.currentScorecard.scores.indexOf(playerScore);
-  }
-
   resetAvailablePlayers() {
     this.availablePlayers = this.playersService.getPlayers();
   }
@@ -48,7 +43,7 @@ export class ScoresComponent implements OnInit {
 
   updateCurrentCourse() {
     const currentCourse = this.availableCourses.filter(item => item.name == this.selectedCourse.name)[0];
-    this.currentScorecard = new Scorecard(currentCourse, new Array<Array<Score>>());
+    this.currentScorecard = new Scorecard(currentCourse, []);
     this.resetAvailablePlayers();
   }
 
@@ -58,12 +53,17 @@ export class ScoresComponent implements OnInit {
     for(var i = 1; i <= currentCourse.holes.length; i++) {
       newPlayerScores.push(new Score(this.selectedPlayer, currentCourse.holes[i], 0));
     }
-    this.currentScorecard.scores.push(newPlayerScores);
+    this.currentScorecard.scores.push(new PlayerScoresMap(this.selectedPlayer, newPlayerScores));
     this.availablePlayers = this.availablePlayers.filter(item => item.username != this.selectedPlayer.username);
   }
 
   getCurrentPlayers() {
-    return this.currentScorecard.scores.map(score => score[0].player);
+    return this.currentScorecard.scores.map(scores => scores.player);
+  }
+
+  getPlayerIndex(player) {
+    const playerScoreMap = this.currentScorecard.scores.filter(scoreMap => scoreMap.player.username == player.username)[0];
+    return this.currentScorecard.scores.indexOf(playerScoreMap);
   }
 
   saveCurrentScorecard() {

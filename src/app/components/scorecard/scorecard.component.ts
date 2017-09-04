@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Course } from "../../entities/course.entity";
-import { Scorecard } from "../../entities/scorecard.entity";
+import { Scorecard, PlayerScoresMap } from "../../entities/scorecard.entity";
 import { Score } from "../../entities/score.entity";
 
 @Component({
@@ -11,7 +11,7 @@ import { Score } from "../../entities/score.entity";
 export class ScorecardComponent implements OnInit {
 
   @Input() course: Course;
-  @Input() scores: Array<Array<Score>>;
+  @Input() scores: Array<PlayerScoresMap>;
   scorecard: Scorecard;
 
   ngOnInit(): void {

@@ -9,7 +9,7 @@ import { CoursesService } from '../../services/courses.service';
 import { PlayersService } from '../../services/players.service';
 import { Player } from "../../entities/player.entity";
 import { Score } from "../../entities/score.entity";
-import { Scorecard } from "../../entities/scorecard.entity";
+import { Scorecard, PlayerScoresMap } from "../../entities/scorecard.entity";
 import { ScorecardComponent } from "../../components/scorecard/scorecard.component";
 
 class MockPlayersService extends PlayersService {
@@ -113,6 +113,6 @@ describe('ScoresComponent', () => {
   }
 
   function createFakeScorecard(course) {
-    return new Scorecard(course, new Array<Array<Score>>());
+    return new Scorecard(course, new Array<PlayerScoresMap>());
   }
 });

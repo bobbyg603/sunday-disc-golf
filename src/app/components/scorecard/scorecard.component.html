@@ -28,11 +28,11 @@
           <b>{{hole.par}}</b>
         </td>
       </tr>
-      <tr *ngFor="let playerScores of scorecard.scores">
+      <tr *ngFor="let playerScoreMap of scorecard.scores">
         <td class="course-table-header">
-          {{playerScores[0].player.username}}
+          {{playerScoreMap.player.username}}
         </td>
-        <td *ngFor="let score of playerScores" class="course-table-cell text-align-center">
+        <td *ngFor="let score of playerScoreMap.scores" class="course-table-cell text-align-center">
           {{score.score}}
         </td>
       </tr>
