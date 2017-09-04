@@ -24,7 +24,7 @@
           <tr class="course-table-row" *ngFor="let player of getCurrentPlayers()">
             <td class="course-table-header">{{player.username}}</td>
             <td class="course-table-cell text-align-center" *ngFor="let hole of currentScorecard.course.holes">
-              <input [(ngModel)]="currentScorecard.scores[getPlayerIndex(player)].scores[hole.number - 1].value" class="form-control text-align-center">
+              <input [(ngModel)]="currentScorecard.scores[getPlayerIndex(player)].scores[hole.number - 1].score" class="form-control text-align-center">
             </td>
           </tr>
         </table>
@@ -35,6 +35,8 @@
           <button (click)="updateCurrentPlayers()" class="btn btn-success">Add Player</button>
         </div>
         <div class="text-align-center">
+          <span style="color:red;">{{currentError}}</span>
+          <br/>
           <button class="btn btn-success" (click)="saveCurrentScorecard()">Save</button>
           <button class="btn btn-danger" (click)="resetCurrentScorecard()">Reset</button>
         </div>

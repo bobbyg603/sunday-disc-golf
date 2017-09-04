@@ -14,13 +14,14 @@ import { PlayersService } from '../../services/players.service';
 export class ScoresComponent implements OnInit {
 
   title = "Scores";
+  currentError = "";
+
   availablePlayers = new Array<Player>();
   availableCourses = new Array<Course>();
-
-  currentScorecard: Scorecard;
   selectedPlayer: Player;
   selectedCourse: Course;
-
+  
+  currentScorecard: Scorecard;
   scorecards: Array<Scorecard> = new Array<Scorecard>();
 
   constructor(private coursesService: CoursesService, private playersService: PlayersService) { }
@@ -30,6 +31,7 @@ export class ScoresComponent implements OnInit {
   }
 
   resetCurrentScorecard() {
+    this.resetCurrentError();
     this.resetAvailableCourses();
     this.resetAvailablePlayers();
     this.resetSelectedCourse();
@@ -43,6 +45,10 @@ export class ScoresComponent implements OnInit {
 
   resetAvailableCourses() {
     this.availableCourses = this.coursesService.getCourses();
+  }
+
+  resetCurrentError() {
+    this.currentError = "";
   }
 
   resetSelectedCourse() {
@@ -81,6 +87,16 @@ export class ScoresComponent implements OnInit {
   }
 
   saveCurrentScorecard() {
+    // TODO BG test
+    if(this.currentScorecard.scores.filter(scoreMap => scoreMap.scores.filter(score => score.score == 0).length > 0).length > 0) {
+      this.currentError = "Scores must be entered for all holes!";
+      return;
+    }
+    if(this.currentScorecard.scores.length < 1) {
+      this.currentError = "Please add at least 1 player!";
+      return
+    }
     this.scorecards.push(this.currentScorecard);
+    this.resetCurrentScorecard();
   }
 }
