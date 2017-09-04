@@ -28,10 +28,12 @@
             </td>
           </tr>
         </table>
-        <select id="playerSelect" [(ngModel)]="selectedPlayer">
-            <option *ngFor="let player of availablePlayers" [ngValue]="player">{{player.username}}</option>
-          </select>
-        <button (click)="updateCurrentPlayers()" class="btn btn-success">Add Player</button>
+        <div *ngIf="availablePlayers.length">
+          <select id="playerSelect" [(ngModel)]="selectedPlayer">
+              <option *ngFor="let player of availablePlayers" [ngValue]="player">{{player.username}}</option>
+            </select>
+          <button (click)="updateCurrentPlayers()" class="btn btn-success">Add Player</button>
+        </div>
         <div class="text-align-center">
           <button class="btn btn-success" (click)="saveCurrentScorecard()">Save</button>
           <button class="btn btn-danger">Reset</button>
