@@ -41,10 +41,15 @@ export class ScoresComponent implements OnInit {
     this.availableCourses = this.coursesService.getCourses();
   }
 
+  resetSelectedPlayer() {
+    this.selectedPlayer = this.availablePlayers[0];
+  }
+
   updateCurrentCourse() {
     const currentCourse = this.availableCourses.filter(item => item.name == this.selectedCourse.name)[0];
     this.currentScorecard = new Scorecard(currentCourse, []);
     this.resetAvailablePlayers();
+    this.resetSelectedPlayer();
   }
 
   updateCurrentPlayers() {
@@ -55,6 +60,7 @@ export class ScoresComponent implements OnInit {
     }
     this.currentScorecard.scores.push(new PlayerScoresMap(this.selectedPlayer, newPlayerScores));
     this.availablePlayers = this.availablePlayers.filter(item => item.username != this.selectedPlayer.username);
+    this.resetSelectedPlayer();
   }
 
   getCurrentPlayers() {
