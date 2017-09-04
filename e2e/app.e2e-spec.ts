@@ -34,5 +34,11 @@ describe('sundaydiscgolf App', () => {
     page.navigateTo();
     element(By.linkText("Scores")).click();
     expect(element(By.css("h1")).getText()).toContain("Scores");
+  });
+
+  it('should navigate to the leaderboard page', () => {
+    page.navigateTo();
+    element(By.linkText("Leaderboard")).click();
+    expect(element(By.css("h1")).getText()).toContain("Leaderboard");
   })
 });
