@@ -26,10 +26,14 @@ export class ScoresComponent implements OnInit {
   constructor(private coursesService: CoursesService, private playersService: PlayersService) { }
 
   ngOnInit() {
+    this.resetCurrentScorecard();
+  }
+
+  resetCurrentScorecard() {
     this.resetAvailableCourses();
     this.resetAvailablePlayers();
-    this.selectedCourse = this.availableCourses[0];
-    this.selectedPlayer = this.availablePlayers[0];
+    this.resetSelectedCourse();
+    this.resetSelectedPlayer();
     this.updateCurrentCourse();
   }
 
@@ -39,6 +43,10 @@ export class ScoresComponent implements OnInit {
 
   resetAvailableCourses() {
     this.availableCourses = this.coursesService.getCourses();
+  }
+
+  resetSelectedCourse() {
+    this.selectedCourse = this.availableCourses[0];
   }
 
   resetSelectedPlayer() {
