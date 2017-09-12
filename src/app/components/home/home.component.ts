@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
         js = d.createElement(s);
         js.id = id;
         js.src = p + "://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
+        //fjs.parentNode.insertBefore(js, fjs);
+        document.getElementById("twitter-feed").insertBefore(js, null);
       }
     }(document, "script", "twitter-wjs");
   }
