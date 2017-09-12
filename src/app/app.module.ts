@@ -11,9 +11,11 @@ import { CoursesService } from './services/courses.service';
 import { PlayersService } from './services/players.service';
 import { ScorecardComponent } from './components/scorecard/scorecard.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { HomeComponent } from './components/home/home.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/scores', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'players', component: PlayersComponent },
@@ -27,7 +29,8 @@ const appRoutes: Routes = [
     CoursesComponent,
     ScoresComponent,
     ScorecardComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    HomeComponent
   ],
   imports: [
     RouterModule.forRoot(

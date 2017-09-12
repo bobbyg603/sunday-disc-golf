@@ -4,7 +4,7 @@
       <a class="navbar-brand" href="#">
         {{title}}
       </a>
-      <ul class="nav navbar-nav">
+      <ul *ngIf="isLoggedIn" class="nav navbar-nav">
         <li>
           <a routerLink="/scores" routerLinkActive="active">Scores</a>
         </li>
@@ -16,6 +16,11 @@
         </li>
         <li>
           <a routerLink="/courses" routerLinkActive="active">Courses</a>
+        </li>
+      </ul>
+      <ul *ngIf="!isLoggedIn" class="nav navbar-nav">
+        <li>
+          <button (click)="login()">Login</button>
         </li>
       </ul>
     </div>
