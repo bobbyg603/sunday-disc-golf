@@ -1,29 +1,34 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        {{title}}
-      </a>
-      <ul *ngIf="isLoggedIn" class="nav navbar-nav">
-        <li>
-          <a routerLink="/scores" routerLinkActive="active">Scores</a>
-        </li>
-        <li>
-          <a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
-        </li>
-        <li>
-          <a routerLink="/players" routerLinkActive="active">Players</a>
-        </li>
-        <li>
-          <a routerLink="/courses" routerLinkActive="active">Courses</a>
-        </li>
-      </ul>
-      <ul *ngIf="!isLoggedIn" class="nav navbar-nav">
-        <li>
-          <button (click)="login()">Login</button>
-        </li>
-      </ul>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <div class="navbar-brand">
+      {{title}}
     </div>
+    <button type="button" class="navbar-toggle" (click)="isCollapsed = !isCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+  </div>
+  <div class="navbar-collapse" [class.collapse]="isCollapsed">
+    <ul *ngIf="isLoggedIn" class="nav navbar-nav navbar-right">
+      <li>
+        <a routerLink="/scores" routerLinkActive="active">Scores</a>
+      </li>
+      <li>
+        <a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
+      </li>
+      <li>
+        <a routerLink="/players" routerLinkActive="active">Players</a>
+      </li>
+      <li>
+        <a routerLink="/courses" routerLinkActive="active">Courses</a>
+      </li>
+    </ul>
+    <ul *ngIf="!isLoggedIn" class="nav navbar-nav navbar-right">
+      <li>
+        <a (click)="login()">Login</a>
+      </li>
+    </ul>
   </div>
 </nav>
 <router-outlet></router-outlet>

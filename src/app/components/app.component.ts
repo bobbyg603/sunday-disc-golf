@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'Sunday Disc Golf';
   currentError = '';
   isLoggedIn = false;
+  isCollapsed = true;
 
   constructor(private router: Router) {}
 
