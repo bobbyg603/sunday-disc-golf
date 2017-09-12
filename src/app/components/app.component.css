@@ -9,3 +9,7 @@
 .navbar-toggle {
     z-index:3;
 }
+.navbar-link {
+    cursor: pointer;
+    cursor: hand;
+}
