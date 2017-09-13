@@ -9,12 +9,28 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
+  currentError;
+
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    this.resetCurrentError();
   }
 
   login(username, password) {
+    if (!username) {
+      this.currentError = "Please enter a username";
+      return;
+    }
+    if (!password) {
+      this.currentError = "Please enter a password";
+      return;
+    }
+    this.resetCurrentError();
     this.loginService.login(username, password, "scores");
+  }
+
+  resetCurrentError() {
+    this.currentError = " ";
   }
 }

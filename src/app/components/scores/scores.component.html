@@ -3,8 +3,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <select id="courseSelect" [(ngModel)]="selectedCourse" (ngModelChange)="updateCurrentCourse()">
-    <option *ngFor="let course of availableCourses" [ngValue]="course">{{course.name}}</option>
-  </select>
+        <option *ngFor="let course of availableCourses" [ngValue]="course">{{course.name}}</option>
+      </select>
     </div>
     <div class="panel-body">
       <div *ngIf="selectedCourse">
