@@ -1,13 +1,29 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, ExpectedConditions } from 'protractor';
 
-export class SundaydiscgolfPage {
-  
+export class SundayDiscGolfPage {
+
+  navbar = element(by.className("navbar"));
+  navbarToggleButton = element(by.id("navbar-toggle-button"));
+  loginLink = element(by.linkText("Login"));
+  logoutLink = element(by.linkText("Logout"));
+  usernameInput = element(by.id("usernameInput"));
+  passwordInput = element(by.id("passwordInput"));
+  signInButton = element(by.buttonText("Sign in"));
+
   navigateTo() {
     return browser.get('/');
   }
 
-  login() {
-    element(by.buttonText("Login")).click();
+  login(username = "bobbyg603", password = "password") {
+    this.loginLink.click();
+    browser.wait(ExpectedConditions.visibilityOf(this.usernameInput));
+    this.usernameInput.sendKeys(username);
+    this.passwordInput.sendKeys(password);
+    this.signInButton.click();
+  }
+
+  logout() {
+    this.logoutLink.click();
   }
 
   getParagraphText() {
