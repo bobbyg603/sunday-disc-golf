@@ -13,13 +13,15 @@ import { PlayersService } from './services/players.service';
 import { ScorecardComponent } from './components/scorecard/scorecard.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginService } from './services/login.service';
+import { AuthenticationService } from './services/authentication.service';
 import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/signup/signup.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignUpComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'players', component: PlayersComponent },
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
     ScorecardComponent,
     LeaderboardComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +51,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     CoursesService,
-    LoginService,
+    AuthenticationService,
     PlayersService
   ],
   bootstrap: [AppComponent]

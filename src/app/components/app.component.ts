@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService, LoginEvent, LoginEventType } from '../services/login.service';
+import { AuthenticationService, LoginEvent, LoginEventType } from '../services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +14,10 @@ export class AppComponent implements OnInit {
   isCollapsed = true;
   context = this;
   
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: AuthenticationService) { }
   
   ngOnInit(): void {
-    this.isLoggedIn = this.loginService.isLoggedIn();
+    this.isLoggedIn = this.loginService.isAuthenticated();
     this.loginService.getObservable().subscribe((loginEvent) => this.onLoginChanged(loginEvent));
   }
 

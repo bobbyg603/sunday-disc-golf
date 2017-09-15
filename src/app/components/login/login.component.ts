@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   currentError;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
     this.resetCurrentError();
@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
     }
     this.resetCurrentError();
     this.loginService.login(username, password, "scores");
+  }
+
+  navigateToSignUp() {
+    this.router.navigate(["signup"]);
   }
 
   resetCurrentError() {

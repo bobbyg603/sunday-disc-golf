@@ -16,6 +16,7 @@ export class ScoresComponent implements OnInit {
   title = "Scores";
   currentError = "";
 
+  allPlayers = new Array<Player>();
   availablePlayers = new Array<Player>();
   availableCourses = new Array<Course>();
   selectedPlayer: Player;
@@ -27,7 +28,10 @@ export class ScoresComponent implements OnInit {
   constructor(private coursesService: CoursesService, private playersService: PlayersService) { }
 
   ngOnInit() {
-    this.resetCurrentScorecard();
+    this.playersService.list().subscribe(players => {
+      this.allPlayers = <Array<Player>>players;
+      this.resetCurrentScorecard();
+    });
   }
 
   resetCurrentScorecard() {
@@ -40,7 +44,7 @@ export class ScoresComponent implements OnInit {
   }
 
   resetAvailablePlayers() {
-    this.availablePlayers = this.playersService.getPlayers();
+    this.availablePlayers = this.allPlayers;
   }
 
   resetAvailableCourses() {

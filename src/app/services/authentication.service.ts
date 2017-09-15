@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class LoginService {
+export class AuthenticationService {
 
   readonly TOKEN_KEY = "isLoggedIn";
   readonly AUTH_URL = "https://5y0w2j7jyl.execute-api.us-east-1.amazonaws.com/prod/authenticate";
@@ -17,7 +17,7 @@ export class LoginService {
     return this.loginServiceEventSubject.asObservable();
   }
 
-  isLoggedIn() {
+  isAuthenticated() {
     // TODO BG implement
     return !!sessionStorage.getItem(this.TOKEN_KEY);
   }
