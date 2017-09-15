@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 export class AuthenticationService {
 
   readonly TOKEN_KEY = "isLoggedIn";
-  readonly AUTH_URL = "https://5y0w2j7jyl.execute-api.us-east-1.amazonaws.com/prod/authenticate";
+  readonly AUTH_URL = "https://ljhx07n27b.execute-api.us-east-1.amazonaws.com/dev/authenticate";
   
   loginServiceEventSubject: Subject<LoginEvent> = new Subject<LoginEvent>();
 
@@ -24,12 +24,10 @@ export class AuthenticationService {
 
   login(username, password, redirectTo) {
     const payload = {
-      user: {
         username,
         password
-      }
     };
-    this.httpClient.post(this.AUTH_URL, payload)
+    this.httpClient.post(this.AUTH_URL + "/player", payload)
       .subscribe(data => {
         const isValid = data.hasOwnProperty("success")
           && data.hasOwnProperty("message")
@@ -37,16 +35,19 @@ export class AuthenticationService {
         if (isValid) {
           const response = <AuthenticateResponse>data;
           this.setToken(response.token);
-          this.loginServiceEventSubject.next(new LoginEvent(LoginEventType.Login, redirectTo));
+          this.loginServiceEventSubject.next(new LoginEvent(LoginEventType.Login, "login success", redirectTo));
         } else {
           throw new Error("Invalid login response. Data:\n" + JSON.stringify(data));
         }
+      }, error => {
+        const message = (<AuthenticateResponse>(error.error)).message || "Invalid request";
+        this.loginServiceEventSubject.next(new LoginEvent(LoginEventType.Error, message, "login"));
       });
   }
 
   logout() {
     this.removeToken();
-    this.loginServiceEventSubject.next(new LoginEvent(LoginEventType.Logout, "home"));
+    this.loginServiceEventSubject.next(new LoginEvent(LoginEventType.Logout, "logout success", "home"));
   }
 
   removeToken() {
@@ -60,11 +61,12 @@ export class AuthenticationService {
 
 export enum LoginEventType {
   Login,
-  Logout
+  Logout,
+  Error
 }
 
 export class LoginEvent {
-  constructor(public type: LoginEventType, public redirectTo: string) {}
+  constructor(public type: LoginEventType, public message: string, public redirectTo: string) {}
 }
 
 // TODO BG move

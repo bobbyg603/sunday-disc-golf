@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService, LoginEventType } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.resetCurrentError();
+    this.loginService.getObservable().subscribe(loginEvent => {
+      if(loginEvent.type == LoginEventType.Error) {
+        this.setCurrentError(loginEvent.message);
+      }
+    });
   }
 
   login(username, password) {
@@ -36,5 +41,9 @@ export class LoginComponent implements OnInit {
 
   resetCurrentError() {
     this.currentError = " ";
+  }
+
+  setCurrentError(message) {
+    this.currentError = message;
   }
 }
