@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-import { AccountService } from '../../services/login.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -10,9 +11,12 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        RouterTestingModule.withRoutes([])
+      ],
       declarations: [LoginComponent],
-      providers: [AccountService],
-      imports: [HttpClientModule]
+      providers: [AuthenticationService]
     })
       .compileComponents();
   }));
@@ -40,7 +44,7 @@ describe('LoginComponent', () => {
   it('should call loginService if username and password are valid', () => {
     const testUsername = "bobbyg603";
     const testPassword = "password123";
-    const loginService = fixture.debugElement.injector.get(AccountService);
+    const loginService = fixture.debugElement.injector.get(AuthenticationService);
     loginService.login = (username, password) => {
       expect(username).toEqual(testUsername);
       expect(password).toEqual(testPassword);

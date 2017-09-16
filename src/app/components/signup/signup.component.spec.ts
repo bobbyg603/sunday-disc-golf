@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpComponent } from './signup.component';
+import { AuthenticationService } from '../../services/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
+import { PlayersService } from '../../services/players.service';
 
 describe('SignupComponent', () => {
   let component: SignUpComponent;
@@ -8,9 +11,14 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignUpComponent ]
+      imports: [HttpClientModule],
+      declarations: [SignUpComponent],
+      providers: [
+        AuthenticationService,
+        PlayersService
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -22,16 +22,16 @@ export class PlayersComponent implements OnInit{
   }
 
   updatePlayer(username, password, firstName, lastName, email, phone, bio) {
-    if(!this.playerExists(username)) {
-      this.currentError = username + " doesn't exist!";
-      return;
-    }
     if(username == "") {
       this.currentError = "Please enter a username!";
       return;
     }
     if(password == "") {
       this.currentError = "Please enter a password!";
+      return;
+    }
+    if(!this.playerExists(username)) {
+      this.currentError = username + " doesn't exist!";
       return;
     }
     const player = new Player(username, password);
