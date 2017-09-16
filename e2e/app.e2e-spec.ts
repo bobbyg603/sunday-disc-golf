@@ -17,7 +17,6 @@ describe('sundaydiscgolf App', () => {
   it('should display the navbar', () => {
     const links = [];
     links.push(page.navbar.element(By.linkText("Home")));
-    links.push(page.navbar.element(By.linkText("Players")));
     links.push(page.navbar.element(By.linkText("Courses")));
     links.push(page.navbar.element(By.linkText("Scores")));
     links.push(page.navbar.element(By.linkText("Leaderboard")));
@@ -26,11 +25,6 @@ describe('sundaydiscgolf App', () => {
     links.forEach(link => {
       expect(link.isDisplayed()).toBe(true);
     })
-  });
-
-  it('should navigate to the players page', () => {
-    element(By.linkText("Players")).click();
-    expect(element(By.css("h1")).getText()).toContain("Players");
   });
 
   it('should navigate to the courses page', () => {

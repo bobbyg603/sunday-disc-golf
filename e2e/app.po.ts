@@ -14,7 +14,7 @@ export class SundayDiscGolfPage {
     return browser.get('/');
   }
 
-  login(username = "bobbyg603", password = "password") {
+  login(username = "bobbyg603", password = "Fe7T4DcAamqz") {
     this.loginLink.click();
     browser.wait(ExpectedConditions.visibilityOf(this.usernameInput));
     this.usernameInput.sendKeys(username);
