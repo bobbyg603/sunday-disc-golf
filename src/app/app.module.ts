@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthenticationService } from './services/authentication.service';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
+import { CourseComponent } from './components/courses/course/course.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     LeaderboardComponent,
     HomeComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    CourseComponent
   ],
   imports: [
     HttpClientModule,

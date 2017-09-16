@@ -8,6 +8,7 @@ import { CoursesComponent } from './courses.component';
 import { ScorecardComponent } from '../scorecard/scorecard.component';
 import { Course } from '../../entities/course.entity';
 import { Hole } from '../../entities/hole.entity';
+import { CourseComponent } from './course/course.component';
 
 class MockCourseService extends CoursesService {
   courses = [];
@@ -17,6 +18,7 @@ describe('CoursesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
+        CourseComponent,
         CoursesComponent,
         ScorecardComponent
       ],
@@ -48,87 +50,61 @@ describe('CoursesComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Courses');
   }));
 
-  it('should add course to currentCourses when addCourse is called with a valid course name', async(() => {
+  it('should display a list of courses', async(() => {
     const fixture = TestBed.createComponent(CoursesComponent);
-    const app = fixture.debugElement.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
-    const courseName = "Top of the Hill";
-    const holes = createHoleArray(18);
-    const newCourse = new Course(courseName, holes);
-
-    app.currentCourse = newCourse;
-    app.addCourse(newCourse.name);
+    const app = fixture.debugElement.componentInstance;
+    app.courses = createFakeCourses();
     fixture.detectChanges();
-    expect(app.courses.filter(course => course.name == newCourse.name).length).toBe(1);
+    app.courses.forEach(course =>  {
+      expect(compiled.querySelector('#coursesComponentRoot').textContent).toContain(course.name);
+    });
   }));
 
-  it('should remove course if removeCourse is called with a valid course name', async(() => {
-    const fixture = TestBed.createComponent(CoursesComponent);
-    const app = fixture.debugElement.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-    const courseName = "Top of the Hill";
-    const holes = createHoleArray(18);
-    const course = new Course(courseName, holes);
-
-    app.courses.push(course);
-    app.removeCourse(courseName);
-    expect(app.courses.length).toEqual(0);
-  }));
-
-  it('should display an error if addCourse is called with empty name', async(() => {
-    const fixture = TestBed.createComponent(CoursesComponent);
-    const app = fixture.debugElement.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-    
-    app.addCourse("");
-    fixture.detectChanges();
-    expect(compiled.querySelector("#currentError").textContent).toContain("Course name can't be empty!");
-  }));
-
-  it('should display an error if removeCourse is called with course name that does not exist', async(() => {
-    const fixture = TestBed.createComponent(CoursesComponent);
-    const app = fixture.debugElement.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-    const courseName = "Henniker";
-    
-    app.removeCourse(courseName);
-    fixture.detectChanges();
-    expect(compiled.querySelector("#currentError").textContent).toContain(courseName + " doesn't exist!");
-  }));
-
-  it('should display an error if any distance values equal 0', async(() => {
-    const fixture = TestBed.createComponent(CoursesComponent);
-    const app = fixture.debugElement.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-    const courseName = "Top of the Hill";
-    const holes = [ new Hole(1, 3, 0) ];
-    const course = new Course(courseName, holes);
-
-    app.currentCourse = course;
-    app.addCourse(course.name);
-    fixture.detectChanges();
-    expect(compiled.querySelector("#currentError").textContent).toContain("Invalid distance value!");
-  }));
-
-  it('should display an error if any par values equal 0', async(() => {
-    const fixture = TestBed.createComponent(CoursesComponent);
-    const app = fixture.debugElement.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-    const courseName = "Top of the Hill";
-    const holes = [ new Hole(1, 0, 100) ];
-    const course = new Course(courseName, holes);
-
-    app.currentCourse = course;
-    app.addCourse(course.name);
-    fixture.detectChanges();
-    expect(compiled.querySelector("#currentError").textContent).toContain("Invalid par value!");
-  }));
-
-  function createHoleArray(numberOfHoles: Number): Array<Hole> {
-    const holes = new Array<Hole>();
-    for(var i = 1; i <= numberOfHoles; i++) {
-      holes.push(new Hole(i, 3, 300));
-    }
-    return holes;
+  function createFakeCourses() {
+    const courses = [];
+    courses.push(new Course("Top of the Hill", [
+      new Hole(1, 3, 300),
+      new Hole(2, 3, 300),
+      new Hole(3, 3, 300),
+      new Hole(4, 3, 300),
+      new Hole(5, 3, 300),
+      new Hole(6, 3, 300),
+      new Hole(7, 3, 300),
+      new Hole(8, 3, 300),
+      new Hole(9, 3, 300),
+      new Hole(10, 3, 300),
+      new Hole(11, 3, 300),
+      new Hole(12, 3, 300),
+      new Hole(13, 3, 300),
+      new Hole(14, 3, 300),
+      new Hole(15, 3, 300),
+      new Hole(16, 3, 300),
+      new Hole(17, 3, 300),
+      new Hole(18, 3, 300),
+    ], "68 SW Rd", "Canterbury", "NH", "03224"));
+    courses.push(new Course("Henniker", [
+      new Hole(1, 3, 300),
+      new Hole(2, 3, 300),
+      new Hole(3, 3, 300),
+      new Hole(4, 3, 300),
+      new Hole(5, 3, 300),
+      new Hole(6, 3, 300),
+      new Hole(7, 3, 300),
+      new Hole(8, 3, 300),
+      new Hole(9, 3, 300)
+    ], "87 Grove Street", "Henniker", "NH", "03242"));
+    courses.push(new Course("Other Course", [
+      new Hole(1, 3, 300),
+      new Hole(2, 3, 300),
+      new Hole(3, 3, 300),
+      new Hole(4, 3, 300),
+      new Hole(5, 3, 300),
+      new Hole(6, 3, 300),
+      new Hole(7, 3, 300),
+      new Hole(8, 3, 300),
+      new Hole(9, 3, 300)
+    ], "87 Grove Street", "Henniker", "NH", "03242"));
+    return courses;
   }
 });
