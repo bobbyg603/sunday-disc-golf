@@ -1,14 +1,34 @@
 import { TestBed, async } from '@angular/core/testing';
 import { PlayersComponent } from './players.component';
 import { PlayersService } from '../../services/players.service';
+import { HttpClientModule } from '@angular/common/http';
+import { Player } from '../../entities/player.entity';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/observable/of';
 
 class MockPlayersService extends PlayersService {
+  
+  mockPlayersSubject = new Subject<Object>();
+  
   players = [];
+
+  create(player: Player): Observable<Object> {
+    this.players.push(player);
+    return Observable.of(player);
+  }
+
+  list(): Observable<Object> {
+    return Observable.of(this.players);
+  }
 }
 
 describe('PlayersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule
+      ],
       declarations: [
         PlayersComponent
       ],
@@ -37,22 +57,25 @@ describe('PlayersComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Players');
   }));
 
-  it('should display an error if addPlayer is called without a username', async(() => {
+  it('should display an error if updatePlayer is called without a username', async(() => {
     const fixture = TestBed.createComponent(PlayersComponent);
     fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
-    app.addPlayer("", "", "", "", "", "", "");
+    app.updatePlayer("", "", "", "", "", "", "");
     fixture.detectChanges();
     expect(compiled.querySelector('#currentError').textContent).toContain('Please enter a username!');
   }));
 
   it('should display an error if addPlayer is called without a password', async(() => {
     const fixture = TestBed.createComponent(PlayersComponent);
+    const playersService = fixture.debugElement.injector.get(PlayersService);
+    const testPlayer = new Player("bobbyg603", "password");
+    playersService.create(testPlayer);
     fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
-    app.addPlayer("bobbyg603", "", "", "", "", "", "");
+    app.updatePlayer(testPlayer.username, "", "", "", "", "", "");
     fixture.detectChanges();
     expect(compiled.querySelector('#currentError').textContent).toContain('Please enter a password!');
   }));

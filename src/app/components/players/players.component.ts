@@ -18,14 +18,10 @@ export class PlayersComponent implements OnInit{
   constructor(private playersService: PlayersService) {}
 
   ngOnInit(): void {
-    this.updatePlayers();
+    this.playersService.list().subscribe((players) => this.updatePlayers(players));
   }
 
-  addPlayer(username, password, firstName, lastName, email, phone, bio) {
-    if(this.playerExists(username)) {
-      this.currentError = username + " already exists!";
-      return;
-    }
+  updatePlayer(username, password, firstName, lastName, email, phone, bio) {
     if(username == "") {
       this.currentError = "Please enter a username!";
       return;
@@ -34,15 +30,20 @@ export class PlayersComponent implements OnInit{
       this.currentError = "Please enter a password!";
       return;
     }
+    if(!this.playerExists(username)) {
+      this.currentError = username + " doesn't exist!";
+      return;
+    }
     const player = new Player(username, password);
     player.firstName = firstName;
     player.lastName = lastName;
     player.email = email;
     player.phone = phone;
     player.bio = bio;
-    this.playersService.addPlayer(player);
-    this.resetCurrentError();
-    this.updatePlayers();
+    this.playersService.update(player).subscribe(newPlayer => {
+      this.resetCurrentError();
+      this.playersService.list().subscribe((players) => this.updatePlayers(players));
+    });
   }
 
   removePlayer(username) {
@@ -53,10 +54,11 @@ export class PlayersComponent implements OnInit{
       this.currentError = username + " doesn't exist!";
       return;
     }
-    const player = this.players.filter(item => item.username == username)[0];
-    this.playersService.removePlayer(player);
-    this.resetCurrentError();
-    this.updatePlayers();
+    const player = this.players.find(item => item.username == username);
+    this.playersService.delete(player).subscribe(() => {
+      this.resetCurrentError();
+      this.playersService.list().subscribe((players) => this.updatePlayers(players));
+    });
   }
 
   playerExists(username) {
@@ -67,7 +69,7 @@ export class PlayersComponent implements OnInit{
     this.currentError = "";
   }
 
-  updatePlayers() {
-    this.players = this.playersService.getPlayers();
+  updatePlayers(players) {
+    this.players = players;
   }
 }

@@ -11,6 +11,7 @@ import { Player } from "../../entities/player.entity";
 import { Score } from "../../entities/score.entity";
 import { Scorecard, PlayerScoresMap } from "../../entities/scorecard.entity";
 import { ScorecardComponent } from "../../components/scorecard/scorecard.component";
+import { HttpClientModule } from '@angular/common/http';
 
 class MockPlayersService extends PlayersService {
   players = [];
@@ -26,11 +27,14 @@ describe('ScoresComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        HttpClientModule
+      ],
       declarations: [
         ScoresComponent,
         ScorecardComponent
       ],
-      imports: [ FormsModule ],
       providers: [
         { provide: CoursesService, useClass: MockCoursesService },
         { provide: PlayersService, useClass: MockPlayersService}
