@@ -22,7 +22,7 @@ import { AddCourseComponent } from './components/add/course/add-course.component
 import { AddCourseAddressComponent } from './components/add/course/address/add-course-address.component';
 import { CourseBuilderEventService } from './services/coursebuilderevent.service';
 import { CourseNameComponent } from './components/add/course/name/name.component';
-import { CourseHoleComponent } from './components/add/course/hole/hole.component';
+import { AddCourseHoleComponent } from './components/add/course/hole/add-course-hole.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'name', pathMatch: 'full' },
       { path: 'name', component: CourseNameComponent },
       { path: 'address', component: AddCourseAddressComponent },
-      { path: 'hole/:number', component: CourseHoleComponent },
+      { path: 'hole/:number', component: AddCourseHoleComponent },
     ]
   },
 ];
@@ -60,7 +60,7 @@ const appRoutes: Routes = [
     AddCourseComponent,
     AddCourseAddressComponent,
     CourseNameComponent,
-    CourseHoleComponent
+    AddCourseHoleComponent
   ],
   imports: [
     BrowserAnimationsModule,

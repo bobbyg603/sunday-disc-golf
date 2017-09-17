@@ -5,9 +5,9 @@ import { CourseBuilderEventService } from '../../../../services/coursebuildereve
 import { Hole } from '../../../../entities/hole.entity';
 
 @Component({
-  selector: 'course-hole',
-  templateUrl: './hole.component.html',
-  styleUrls: ['./hole.component.css'],
+  selector: 'add-course-hole',
+  templateUrl: './add-course-hole.component.html',
+  styleUrls: ['./add-course-hole.component.css'],
   animations: [
     trigger('stepAnimation', [
       transition(':enter', [
@@ -21,7 +21,7 @@ import { Hole } from '../../../../entities/hole.entity';
     ])
   ]
 })
-export class CourseHoleComponent implements OnInit {
+export class AddCourseHoleComponent implements OnInit {
 
   holeNumber: number;
   currentError: string = "";

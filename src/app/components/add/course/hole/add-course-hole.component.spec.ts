@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CourseHoleComponent } from './hole.component';
+import { AddCourseHoleComponent } from './add-course-hole.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CourseBuilderEventService } from '../../../../services/coursebuilderevent.service';
 
 describe('CourseHoleComponent', () => {
-  let component: CourseHoleComponent;
-  let fixture: ComponentFixture<CourseHoleComponent>;
+  let component: AddCourseHoleComponent;
+  let fixture: ComponentFixture<AddCourseHoleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -15,14 +15,14 @@ describe('CourseHoleComponent', () => {
         BrowserAnimationsModule,
         RouterTestingModule
       ],
-      declarations: [ CourseHoleComponent ],
+      declarations: [ AddCourseHoleComponent ],
       providers: [ CourseBuilderEventService ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CourseHoleComponent);
+    fixture = TestBed.createComponent(AddCourseHoleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
