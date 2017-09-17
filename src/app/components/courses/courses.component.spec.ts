@@ -9,6 +9,7 @@ import { ScorecardComponent } from '../scorecard/scorecard.component';
 import { Course } from '../../entities/course.entity';
 import { Hole } from '../../entities/hole.entity';
 import { CourseComponent } from './course/course.component';
+import { HttpClientModule } from '@angular/common/http';
 
 class MockCourseService extends CoursesService {
   courses = [];
@@ -23,7 +24,8 @@ describe('CoursesComponent', () => {
         ScorecardComponent
       ],
       imports: [
-        FormsModule
+        FormsModule,
+        HttpClientModule
       ],
       providers: [
         { provide: CoursesService, useClass: MockCourseService }

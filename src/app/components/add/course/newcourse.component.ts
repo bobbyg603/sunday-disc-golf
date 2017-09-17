@@ -6,6 +6,7 @@ import { CoursesService } from '../../../services/courses.service';
 import { Course } from '../../../entities/course.entity';
 import { Address } from '../../../entities/address.entity';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-newcourse',
@@ -16,7 +17,10 @@ import { Subscription } from 'rxjs/Subscription';
 export class NewCourseComponent implements OnInit, OnDestroy {
 
   title = "New Course";
-  subscription: Subscription;
+
+  courseBuilderEventSubscription: Subscription;
+  doneSubscription: Subscription;
+
   courseAddress: Address;
   courseName: string;
   courseHoles: Array<Hole> = [];
@@ -27,7 +31,7 @@ export class NewCourseComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.subscription = this.courseBuilderEventService.getObservable().subscribe((event) => {
+    this.courseBuilderEventSubscription = this.courseBuilderEventService.getObservable().subscribe((event) => {
       switch (event.type) {
         case CourseBuilderEventType.SetAddress: this.setAddress(event.data as Address); break;
         case CourseBuilderEventType.SetName: this.setName(event.data as string); break;
@@ -35,15 +39,17 @@ export class NewCourseComponent implements OnInit, OnDestroy {
         default:
           this.done = true;
           this.addHole(event.data as Hole);
-          this.createCourse();
-          this.navigateToCourses();
+          this.doneSubscription = this.createCourse().subscribe(result => {
+            this.navigateToCourses();
+          });
           break;
       }
     });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.courseBuilderEventSubscription.unsubscribe();
+    this.doneSubscription.unsubscribe();
   }
 
   setName(name: string) {
@@ -72,13 +78,13 @@ export class NewCourseComponent implements OnInit, OnDestroy {
     this.router.navigate(['courses']);
   }
 
-  createCourse() {
+  createCourse(): Observable<Object> {
     const newCourse = new Course(this.courseName,
       this.courseHoles,
       this.courseAddress.street,
       this.courseAddress.city,
       this.courseAddress.state,
       this.courseAddress.zip)
-    this.coursesService.addCourse(newCourse);
+    return this.coursesService.create(newCourse);
   }
 }

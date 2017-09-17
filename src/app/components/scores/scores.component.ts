@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Course } from '../../entities/course.entity';
 import { Player } from '../../entities/player.entity';
 import { Score } from '../../entities/score.entity';
 import { Scorecard, PlayerScoresMap } from '../../entities/scorecard.entity';
 import { CoursesService } from '../../services/courses.service';
 import { PlayersService } from '../../services/players.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-scores',
   templateUrl: './scores.component.html',
   styleUrls: ['./scores.component.css']
 })
-export class ScoresComponent implements OnInit {
+export class ScoresComponent implements OnInit, OnDestroy {
 
   title = "Scores";
   currentError = "";
 
   allPlayers = new Array<Player>();
+  allCourses = new Array<Course>();
   availablePlayers = new Array<Player>();
   availableCourses = new Array<Course>();
   selectedPlayer: Player;
@@ -25,13 +27,25 @@ export class ScoresComponent implements OnInit {
   currentScorecard: Scorecard;
   scorecards: Array<Scorecard> = new Array<Scorecard>();
 
+  coursesListSubscription: Subscription;
+  playersListSubscription: Subscription;
+
   constructor(private coursesService: CoursesService, private playersService: PlayersService) { }
 
   ngOnInit() {
-    this.playersService.list().subscribe(players => {
+    this.coursesListSubscription = this.coursesService.list().subscribe(courses => {
+      this.allCourses = <Array<Course>>courses;
+      this.resetCurrentScorecard();
+    });
+    this.playersListSubscription = this.playersService.list().subscribe(players => {
       this.allPlayers = <Array<Player>>players;
       this.resetCurrentScorecard();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.coursesListSubscription.unsubscribe();
+    this.playersListSubscription.unsubscribe();
   }
 
   resetCurrentScorecard() {
@@ -48,7 +62,7 @@ export class ScoresComponent implements OnInit {
   }
 
   resetAvailableCourses() {
-    this.availableCourses = this.coursesService.getCourses();
+    this.availableCourses = this.allCourses
   }
 
   resetCurrentError() {
