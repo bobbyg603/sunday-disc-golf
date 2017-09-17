@@ -4,9 +4,9 @@ import { CourseBuilderEventService } from '../../../../services/coursebuildereve
 import { Address } from '../../../../entities/address.entity';
 
 @Component({
-  selector: 'course-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css'],
+  selector: 'add-course-address',
+  templateUrl: './add-course-address.component.html',
+  styleUrls: ['./add-course-address.component.css'],
   animations: [
     trigger('stepAnimation', [
       transition(':enter', [
@@ -20,7 +20,7 @@ import { Address } from '../../../../entities/address.entity';
     ])
   ]
 })
-export class CourseAddressComponent {
+export class AddCourseAddressComponent {
 
   currentError: string = "";
 

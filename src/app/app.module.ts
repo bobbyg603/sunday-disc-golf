@@ -19,7 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
 import { CourseComponent } from './components/courses/course/course.component';
 import { AddCourseComponent } from './components/add/course/add-course.component';
-import { CourseAddressComponent } from './components/add/course/address/address.component';
+import { AddCourseAddressComponent } from './components/add/course/address/add-course-address.component';
 import { CourseBuilderEventService } from './services/coursebuilderevent.service';
 import { CourseNameComponent } from './components/add/course/name/name.component';
 import { CourseHoleComponent } from './components/add/course/hole/hole.component';
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'name', pathMatch: 'full' },
       { path: 'name', component: CourseNameComponent },
-      { path: 'address', component: CourseAddressComponent },
+      { path: 'address', component: AddCourseAddressComponent },
       { path: 'hole/:number', component: CourseHoleComponent },
     ]
   },
@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     SignUpComponent,
     CourseComponent,
     AddCourseComponent,
-    CourseAddressComponent,
+    AddCourseAddressComponent,
     CourseNameComponent,
     CourseHoleComponent
   ],

@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CourseAddressComponent } from './address.component';
+import { AddCourseAddressComponent } from './add-course-address.component';
 import { CourseBuilderEventService } from '../../../../services/coursebuilderevent.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CourseAddressComponent', () => {
-  let component: CourseAddressComponent;
-  let fixture: ComponentFixture<CourseAddressComponent>;
+  let component: AddCourseAddressComponent;
+  let fixture: ComponentFixture<AddCourseAddressComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ BrowserAnimationsModule ],
-      declarations: [ CourseAddressComponent ],
+      declarations: [ AddCourseAddressComponent ],
       providers: [ CourseBuilderEventService ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CourseAddressComponent);
+    fixture = TestBed.createComponent(AddCourseAddressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
