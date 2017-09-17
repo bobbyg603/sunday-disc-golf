@@ -4,6 +4,7 @@ import { NewCourseComponent } from './newcourse.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CourseBuilderEventService } from '../../../services/coursebuilderevent.service';
 import { CoursesService } from '../../../services/courses.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NewCourseComponent', () => {
   let component: NewCourseComponent;
@@ -12,7 +13,10 @@ describe('NewCourseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NewCourseComponent ],
-      imports: [ RouterTestingModule ],
+      imports: [ 
+        HttpClientModule,
+        RouterTestingModule
+      ],
       providers: [
         CourseBuilderEventService,
         CoursesService

@@ -42,24 +42,24 @@ export class CourseHoleComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  addHole(par: string, distance: string, description: string) {
+  addHole(par: string, distance: string, elevation: string, description: string) {
     const parNumber = Number(par);
     const distanceNumber = Number(distance);
     if(!this.parIsValid(parNumber)) {
       this.currentError = "Invalid par value";
       return;
     }
-    this.courseBuilderEventService.addHole(new Hole(this.holeNumber, parNumber, distanceNumber, description));
+    this.courseBuilderEventService.addHole(new Hole(this.holeNumber, parNumber, distanceNumber, elevation, description));
   }
 
-  done(par: string, distance: string, description: string) {
+  done(par: string, distance: string, elevation: string, description: string) {
     const parNumber = Number(par);
     const distanceNumber = Number(distance);
     if(!this.parIsValid(parNumber)) {
       this.currentError = "Invalid par value";
       return;
     }
-    this.courseBuilderEventService.done(new Hole(this.holeNumber, parNumber, distanceNumber, description));
+    this.courseBuilderEventService.done(new Hole(this.holeNumber, parNumber, distanceNumber, elevation, description));
   }
 
   parIsValid(parNumber: number) {
