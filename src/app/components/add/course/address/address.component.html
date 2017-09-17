@@ -1,0 +1,18 @@
+<div style="display:block" @stepAnimation>
+  <div class="account-wall">
+    <form class="form-signin">
+      <input #streetInput id="streetInput" type="text" class="form-control" placeholder="Street Address" required>
+      <input #cityInput id="cityInput" type="text" class="form-control" placeholder="City" required>
+      <input #stateInput id="stateInput" type="text" class="form-control" placeholder="State" required>
+      <input #zipInput id="zipInput" type="text" class="form-control" placeholder="Zip Code" required>
+      <div style="text-align: center; height:20px"><span style="color:red">{{currentError}}</span></div>
+      <button class="btn btn-lg btn-primary btn-block"
+        (click)="setAddress(streetInput.value,
+          cityInput.value,
+          stateInput.value,
+          zipInput.value)">
+        Next
+      </button>
+    </form>
+  </div>
+</div>

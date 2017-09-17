@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,11 @@ import { AuthenticationService } from './services/authentication.service';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
 import { CourseComponent } from './components/courses/course/course.component';
+import { NewCourseComponent } from './components/add/course/newcourse.component';
+import { CourseAddressComponent } from './components/add/course/address/address.component';
+import { CourseBuilderEventService } from './services/coursebuilderevent.service';
+import { CourseNameComponent } from './components/add/course/name/name.component';
+import { CourseHoleComponent } from './components/add/course/hole/hole.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +32,17 @@ const appRoutes: Routes = [
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'players', component: PlayersComponent },
-  { path: 'scores', component: ScoresComponent }
+  { path: 'scores', component: ScoresComponent },
+  {
+    path: 'courses/new',
+    component: NewCourseComponent,
+    children: [
+      { path: '', redirectTo: 'name', pathMatch: 'full' },
+      { path: 'name', component: CourseNameComponent },
+      { path: 'address', component: CourseAddressComponent },
+      { path: 'hole/:number', component: CourseHoleComponent },
+    ]
+  },
 ];
 
 @NgModule({
@@ -40,9 +56,14 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-    CourseComponent
+    CourseComponent,
+    NewCourseComponent,
+    CourseAddressComponent,
+    CourseNameComponent,
+    CourseHoleComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
@@ -52,8 +73,9 @@ const appRoutes: Routes = [
     FormsModule
   ],
   providers: [
-    CoursesService,
     AuthenticationService,
+    CoursesService,
+    CourseBuilderEventService,
     PlayersService
   ],
   bootstrap: [AppComponent]

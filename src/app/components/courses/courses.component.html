@@ -1,10 +1,18 @@
 <div id="coursesComponentRoot">
   <div class="container-fluid">
-    <h1>{{title}}</h1>
     <div class="row">
-      <div class="col-sm-6" *ngFor="let course of courses">
-        <app-course [course]="course"></app-course>
+      <div class="col-xs-12">
+        <h1 style="display:inline">{{title}}</h1>
+        &nbsp;
+        <a routerLink="/courses/new" routerLinkActive="active">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let course of courses">
+      <app-course [course]="course"></app-course>
     </div>
   </div>
 </div>
