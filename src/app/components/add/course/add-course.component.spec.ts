@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewCourseComponent } from './newcourse.component';
+import { AddCourseComponent } from './add-course.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CourseBuilderEventService } from '../../../services/coursebuilderevent.service';
 import { CoursesService } from '../../../services/courses.service';
 import { HttpClientModule } from '@angular/common/http';
 
-describe('NewCourseComponent', () => {
-  let component: NewCourseComponent;
-  let fixture: ComponentFixture<NewCourseComponent>;
+describe('AddCourseComponent', () => {
+  let component: AddCourseComponent;
+  let fixture: ComponentFixture<AddCourseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewCourseComponent ],
+      declarations: [ AddCourseComponent ],
       imports: [ 
         HttpClientModule,
         RouterTestingModule
@@ -26,7 +26,7 @@ describe('NewCourseComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewCourseComponent);
+    fixture = TestBed.createComponent(AddCourseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

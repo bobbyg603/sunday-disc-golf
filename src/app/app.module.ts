@@ -6,23 +6,24 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './components/app.component';
+import { HomeComponent } from './components/home/home.component';
+import { ScoresComponent } from './components/scores/scores.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { PlayersComponent } from './components/players/players.component';
-import { ScoresComponent } from './components/scores/scores.component';
-import { CoursesService } from './services/courses.service';
-import { PlayersService } from './services/players.service';
 import { ScorecardComponent } from './components/scorecard/scorecard.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
-import { HomeComponent } from './components/home/home.component';
-import { AuthenticationService } from './services/authentication.service';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
 import { CourseComponent } from './components/courses/course/course.component';
-import { NewCourseComponent } from './components/add/course/newcourse.component';
-import { CourseAddressComponent } from './components/add/course/address/address.component';
+import { AddCourseComponent } from './components/add/course/add-course.component';
+import { AddCourseNameComponent } from './components/add/course/name/add-course-name.component';
+import { AddCourseAddressComponent } from './components/add/course/address/add-course-address.component';
+import { AddCourseHoleComponent } from './components/add/course/hole/add-course-hole.component';
+
+import { AuthenticationService } from './services/authentication.service';
+import { CoursesService } from './services/courses.service';
 import { CourseBuilderEventService } from './services/coursebuilderevent.service';
-import { CourseNameComponent } from './components/add/course/name/name.component';
-import { CourseHoleComponent } from './components/add/course/hole/hole.component';
+import { PlayersService } from './services/players.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -35,12 +36,12 @@ const appRoutes: Routes = [
   { path: 'scores', component: ScoresComponent },
   {
     path: 'courses/new',
-    component: NewCourseComponent,
+    component: AddCourseComponent,
     children: [
       { path: '', redirectTo: 'name', pathMatch: 'full' },
-      { path: 'name', component: CourseNameComponent },
-      { path: 'address', component: CourseAddressComponent },
-      { path: 'hole/:number', component: CourseHoleComponent },
+      { path: 'name', component: AddCourseNameComponent },
+      { path: 'address', component: AddCourseAddressComponent },
+      { path: 'hole/:number', component: AddCourseHoleComponent },
     ]
   },
 ];
@@ -57,10 +58,10 @@ const appRoutes: Routes = [
     LoginComponent,
     SignUpComponent,
     CourseComponent,
-    NewCourseComponent,
-    CourseAddressComponent,
-    CourseNameComponent,
-    CourseHoleComponent
+    AddCourseComponent,
+    AddCourseAddressComponent,
+    AddCourseNameComponent,
+    AddCourseHoleComponent
   ],
   imports: [
     BrowserAnimationsModule,

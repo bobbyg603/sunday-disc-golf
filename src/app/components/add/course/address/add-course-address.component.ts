@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { trigger, transition, animate, style } from '@angular/animations';
 import { CourseBuilderEventService } from '../../../../services/coursebuilderevent.service';
 import { Address } from '../../../../entities/address.entity';
 
 @Component({
-  selector: 'course-name',
-  templateUrl: './name.component.html',
-  styleUrls: ['./name.component.css'],
+  selector: 'add-course-address',
+  templateUrl: './add-course-address.component.html',
+  styleUrls: ['./add-course-address.component.css'],
   animations: [
     trigger('stepAnimation', [
       transition(':enter', [
@@ -20,17 +20,13 @@ import { Address } from '../../../../entities/address.entity';
     ])
   ]
 })
-export class CourseNameComponent {
+export class AddCourseAddressComponent {
 
   currentError: string = "";
-  
+
   constructor(private courseBuilderEventService: CourseBuilderEventService) { }
-  
-    setName(name: string) {
-      if (name == "") {
-        this.currentError = "Invalid name";
-        return;
-      }
-      this.courseBuilderEventService.setName(name);
-    }
+
+  setAddress(street: string, city: string, state: string, zip: string) {
+    this.courseBuilderEventService.setAddress(new Address(street, city, state, zip));
+  }
 }
