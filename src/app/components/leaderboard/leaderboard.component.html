@@ -1,16 +1,20 @@
 <div class="container-fluid">
   <h1>{{title}}</h1>
-  <div *ngFor="let statistic of statistics" class="panel panel-default">
-    <div class="panel-heading">
-      <b>{{statistic.title}}</b>
-    </div>
-    <div class="panel-body">
-      <ol>
-        <li *ngFor="let row of statistic.getRowsDescending()">
-          <div class="col-md-2">{{row.player.username}}</div>
-          <div class="col-md-2">{{row.value}}</div>
-        </li>
-      </ol>
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let statistic of statistics">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <b>{{statistic.title}}</b>
+        </div>
+        <div class="panel-body">
+          <ol>
+            <li *ngFor="let row of statistic.getRowsDescending()">
+              {{row.player.username}}
+              {{row.value}}
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </div>

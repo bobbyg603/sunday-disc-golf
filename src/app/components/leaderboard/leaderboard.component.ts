@@ -20,12 +20,31 @@ export class LeaderboardComponent implements OnInit {
       new PlayerValuePair(new Player("lil jake", "password"), 10),
       new PlayerValuePair(new Player("saynotwice", "password"), 9001) 
     ]));
-
-    this.statistics.push(new Statistic("Albatrosses", []));
-    this.statistics.push(new Statistic("Eagles", []));
-    this.statistics.push(new Statistic("Birdies", []));
-    this.statistics.push(new Statistic("Pars", []));
-    this.statistics.push(new Statistic("Average Score", []));
+    this.statistics.push(new Statistic("Albatrosses", [
+      new PlayerValuePair(new Player("bobbyg603", "password"), 9),
+      new PlayerValuePair(new Player("lil jake", "password"), 10),
+      new PlayerValuePair(new Player("saynotwice", "password"), 9001) 
+    ]));
+    this.statistics.push(new Statistic("Eagles", [
+      new PlayerValuePair(new Player("bobbyg603", "password"), 9),
+      new PlayerValuePair(new Player("lil jake", "password"), 10),
+      new PlayerValuePair(new Player("saynotwice", "password"), 9001) 
+    ]));
+    this.statistics.push(new Statistic("Birdies", [
+      new PlayerValuePair(new Player("bobbyg603", "password"), 9),
+      new PlayerValuePair(new Player("lil jake", "password"), 10),
+      new PlayerValuePair(new Player("saynotwice", "password"), 9001) 
+    ]));
+    this.statistics.push(new Statistic("Pars", [
+      new PlayerValuePair(new Player("bobbyg603", "password"), 9),
+      new PlayerValuePair(new Player("lil jake", "password"), 10),
+      new PlayerValuePair(new Player("saynotwice", "password"), 9001) 
+    ]));
+    this.statistics.push(new Statistic("Average Score", [
+      new PlayerValuePair(new Player("bobbyg603", "password"), 20),
+      new PlayerValuePair(new Player("lil jake", "password"), 19),
+      new PlayerValuePair(new Player("saynotwice", "password"), 18) 
+    ]));
     
   }
 

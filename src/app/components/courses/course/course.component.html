@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+          <b>{{course.name}}</b>
+        </div>
+        <div class="col-lg-4">
+          {{course.street}}
+        </div>
+        <div class="col-lg-4">
+          {{course.city}} {{course.state}} {{course.zip}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+          Holes: {{course.holes.length}}
+        </div>
+        <div class="col-lg-4">
+          Par: {{getTotalPar()}}
+        </div>
+        <div class="col-lg-4">
+          Distance: {{getTotalDistance()}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

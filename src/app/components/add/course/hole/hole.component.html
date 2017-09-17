@@ -1,0 +1,23 @@
+<div style="display:block" @stepAnimation>
+    <div class="account-wall">
+      <form class="form-signin">
+        <h3>Hole {{holeNumber}}</h3>
+        <input #parInput id="parInput" type="text" class="form-control" placeholder="Par" required>
+        <input #distanceInput id="distanceInput" type="text" class="form-control" placeholder="Distance">
+        <textarea #descriptionInput id="descriptionInput" cols="30" rows="10" type="text" class="form-control" placeholder="Description"></textarea>
+        <div style="text-align: center; height:20px">
+          <span style="color:red">{{currentError}}</span>
+        </div>
+        <button *ngIf="holeNumber != 18"
+          class="btn btn-lg btn-primary btn-block"
+          (click)="addHole(parInput.value, distanceInput.value, descriptionInput.value);">
+          Next
+        </button>
+        <button *ngIf="holeNumber == 9 || holeNumber == 18"
+          class="btn btn-lg btn-success btn-block"
+          (click)="done(parInput.value, distanceInput.value, descriptionInput.value);">
+          Done
+      </button>
+      </form>
+    </div>
+  </div>

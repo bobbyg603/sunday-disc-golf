@@ -1,3 +1,6 @@
 export class Hole {
-    constructor(public number: Number, public par: Number, public distance: Number) { }
+    constructor(public number: number,
+        public par: number,
+        public distance: number,
+        public description: string = "") { }
 }

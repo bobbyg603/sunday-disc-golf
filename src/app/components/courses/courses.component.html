@@ -1,55 +1,18 @@
-<div class="container-fluid">
-  <h1>{{title}}</h1>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-md-12">
-          <input placeholder="Course Name" #courseInput>
-          <select type="number" [(ngModel)]="currentHoleCount" (ngModelChange)="updateCurrentCourse()">
-            <option *ngFor="let hole of holeSelectOptions" [ngValue]="hole" [selected]="currentHoleCount == hole">{{hole}}</option>
-          </select>
-        </div>
+<div id="coursesComponentRoot">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 style="display:inline">{{title}}</h1>
+        &nbsp;
+        <a routerLink="/courses/new" routerLinkActive="active">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
       </div>
     </div>
-    <div class="panel-body">
-      <table>
-        <tr class="course-table-row">
-          <td class="course-table-header">
-            <b>Distance</b>
-          </td>
-          <td class="course-table-cell" *ngFor="let hole of currentCourse.holes">
-            <input class="form-control text-align-center" [(ngModel)]="hole.distance" />
-          </td>
-        </tr>
-        <tr class="course-table-row">
-          <td class="course-table-header">
-            <b>Hole</b>
-          </td>
-          <td class="couse-table-cell text-align-center" *ngFor="let hole of currentCourse.holes">
-            <b>{{hole.number}}</b>
-          </td>
-        </tr>
-        <tr class="course-table-row">
-          <td class="course-table-header">
-            <b>Par</b>
-          </td>
-          <td class="course-table-cell" *ngFor="let hole of currentCourse.holes">
-            <input class="form-control text-align-center" [(ngModel)]="hole.par" />
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="text-align-center">
-      <span id="currentError" style="color:red">{{currentError}}</span>
-      <br/>
-      <button class="btn btn-success" (click)="addCourse(courseInput.value)">
-      Save
-    </button>
-      <button class="btn btn-danger" (click)="removeCourse(courseInput.value)">
-      Delete
-    </button>
-    </div>
-    <br/>
   </div>
-  <app-scorecard *ngFor="let course of courses" [course]="course" [scores]="null"></app-scorecard>
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let course of courses">
+      <app-course [course]="course"></app-course>
+    </div>
+  </div>
 </div>
