@@ -9,12 +9,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-newcourse',
-  templateUrl: './newcourse.component.html',
-  styleUrls: ['./newcourse.component.css']
+  selector: 'add-course',
+  templateUrl: './add-course.component.html',
+  styleUrls: ['./add-course.component.css']
 
 })
-export class NewCourseComponent implements OnInit, OnDestroy {
+export class AddCourseComponent implements OnInit, OnDestroy {
 
   title = "New Course";
 
