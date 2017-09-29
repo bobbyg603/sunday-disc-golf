@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseBuilderEventService, CourseBuilderEvent, CourseBuilderEventType } from '../../../services/coursebuilderevent.service';
 import { Hole } from '../../../entities/hole.entity';
 import { CoursesService } from '../../../services/courses.service';
 import { Course } from '../../../entities/course.entity';
 import { Address } from '../../../entities/address.entity';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'add-course',
@@ -14,77 +14,38 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./add-course.component.css']
 
 })
-export class AddCourseComponent implements OnInit, OnDestroy {
+export class AddCourseComponent implements OnInit {
 
   title = "New Course";
 
-  courseBuilderEventSubscription: Subscription;
-  doneSubscription: Subscription;
+  newCourseForm: FormGroup;
 
-  courseAddress: Address;
-  courseName: string;
-  courseHoles: Array<Hole> = [];
-  done: boolean = false;
-
-  constructor(private courseBuilderEventService: CourseBuilderEventService,
-    private coursesService: CoursesService,
-    private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private coursesService: CoursesService) { }
 
   ngOnInit() {
-    this.courseBuilderEventSubscription = this.courseBuilderEventService.getObservable().subscribe((event) => {
-      switch (event.type) {
-        case CourseBuilderEventType.SetAddress: this.setAddress(event.data as Address); break;
-        case CourseBuilderEventType.SetName: this.setName(event.data as string); break;
-        case CourseBuilderEventType.AddHole: this.addHole(event.data as Hole); break;
-        default:
-          this.done = true;
-          this.addHole(event.data as Hole);
-          this.doneSubscription = this.createCourse().subscribe(result => {
-            this.navigateToCourses();
-          });
-          break;
-      }
-    });
+    this.createForm();
   }
 
-  ngOnDestroy(): void {
-    this.courseBuilderEventSubscription.unsubscribe();
-    this.doneSubscription.unsubscribe();
+  createForm() {
+    this.newCourseForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      address: this.formBuilder.group(new Address()),
+      holes: this.formBuilder.array(new Array<Hole>())
+    })
   }
 
-  setName(name: string) {
-    this.courseName = name;
-    this.router.navigate(['courses/new/address']);
+  addHole() {
+    const holeNumber = this.holes.length + 1;
+    this.holes.push(this.formBuilder.group(new Hole(holeNumber)));
   }
 
-  setAddress(location: Address) {
-    this.courseAddress = location;
-    this.navigateToNextHole();
+  get holes(): FormArray {
+    return this.newCourseForm.get("holes") as FormArray;
   }
 
-  addHole(hole: Hole) {
-    this.courseHoles.push(hole);
-    if (!this.done) {
-      this.navigateToNextHole();
-    }
-  }
-
-  navigateToNextHole() {
-    const nextHoleNumber = this.courseHoles.length + 1;
-    this.router.navigate(['courses/new/hole/' + nextHoleNumber])
-  }
-
-  navigateToCourses() {
-    this.router.navigate(['courses']);
-  }
-
-  createCourse(): Observable<Object> {
-    const newCourse = new Course(this.courseName,
-      this.courseHoles,
-      this.courseAddress.street,
-      this.courseAddress.city,
-      this.courseAddress.state,
-      this.courseAddress.zip)
-    return this.coursesService.create(newCourse);
+  setHoles(holes: Array<Hole>) {
+    const holesFormGroups = holes.map(hole => this.formBuilder.group(hole));
+    const holesFormArray = this.formBuilder.group(holesFormGroups);
+    this.newCourseForm.setControl("holes", holesFormArray); 
   }
 }

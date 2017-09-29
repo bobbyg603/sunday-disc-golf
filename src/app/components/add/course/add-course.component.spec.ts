@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddCourseComponent } from './add-course.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CourseBuilderEventService } from '../../../services/coursebuilderevent.service';
 import { CoursesService } from '../../../services/courses.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('AddCourseComponent', () => {
   let component: AddCourseComponent;
@@ -15,10 +15,10 @@ describe('AddCourseComponent', () => {
       declarations: [ AddCourseComponent ],
       imports: [ 
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveFormsModule
       ],
       providers: [
-        CourseBuilderEventService,
         CoursesService
       ]
     })

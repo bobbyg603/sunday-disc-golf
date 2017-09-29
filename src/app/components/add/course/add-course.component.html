@@ -1,8 +1,54 @@
 <div class="container-fluid">
-    <h1>{{title}}</h1>
-    <div class="row">
-      <div class="col-sm-10 col-sm-offset-1">
-          <router-outlet></router-outlet>
-      </div>
+  <h1>{{title}}</h1>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <form [formGroup]="newCourseForm" novalidate>
+        <div class="form-group">
+          <label class="center-block">Name:
+            <input class="form-control" formControlName="name">
+          </label>
+          <div formGroupName="address">  
+            <div class="form-group">
+              <label class="center-block">Street:
+                <input class="form-control" formControlName="street">
+              </label>
+              <label class="center-block">City:
+                <input class="form-control" formControlName="city">
+              </label>
+              <label class="center-block">State:
+                <input class="form-control" formControlName="state">
+              </label>
+              <label class="center-block">Zip:
+                <input class="form-control" formControlName="zip">
+              </label>
+            </div>
+          </div>
+          <div formArrayName="holes">
+            <div *ngFor="let hole of holes.controls; let i=index" [formGroupName]="i" >
+              <h4>Hole {{hole.controls.number.value}}</h4>
+              <label class="center-block">Par:
+                <input class="form-control" formControlName="par">
+              </label>
+              <label class="center-block">Distance:
+                <input class="form-control" formControlName="distance">
+              </label>
+              <label class="center-block">Elevation:
+                <input class="form-control" formControlName="elevation">
+              </label>
+              <label class="center-block">Elevation:
+                <input class="form-control" formControlName="elevation">
+              </label>
+              <label class="center-block">Description:
+                <textarea class="form-control" formControlName="description" cols="30" rows="10" type="text" ></textarea>
+              </label>
+            </div>
+          </div>
+          <button *ngIf="holes.length < 18" (click)="addHole()" type="button">Add Hole</button>
+          <button *ngIf="holes.length == 9 || holes.length == 18">Done</button>
+        </div>
+      </form>
+      <p>Form value: {{ newCourseForm.value | json }}</p>
+      <p>Form status: {{ newCourseForm.status | json }}</p>
     </div>
   </div>
+</div>
