@@ -20,6 +20,9 @@ export class AddCourseComponent implements OnInit {
 
   newCourseForm: FormGroup;
 
+  nameInputVisible = true;
+  addressInputVisible = false;
+
   constructor(private formBuilder: FormBuilder, private coursesService: CoursesService) { }
 
   ngOnInit() {
@@ -32,6 +35,23 @@ export class AddCourseComponent implements OnInit {
       address: this.formBuilder.group(new Address()),
       holes: this.formBuilder.array(new Array<Hole>())
     })
+  }
+
+
+  holeInputVisible(index) {
+    return this.holes.length - 1 == index;
+  }
+
+  next() {
+    if(this.nameInputVisible) {
+      this.nameInputVisible = false;
+      this.addressInputVisible = true;
+    } else if(this.addressInputVisible) {
+      this.addressInputVisible = false;
+      this.addHole();
+    } else {
+      this.addHole();
+    }
   }
 
   addHole() {
