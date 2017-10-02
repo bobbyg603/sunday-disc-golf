@@ -5,7 +5,7 @@
       <div class="input-container">
         <form class="form-add-course" [formGroup]="newCourseForm" novalidate>
           <div class="form-group">
-            <div [hidden]="!nameInputVisible">
+            <div id="name-input" [hidden]="!nameInputVisible">
               <label class="center-block">Name:
                 <input class="form-control" formControlName="name">
               </label>
@@ -13,18 +13,26 @@
             </div>
             <div formGroupName="address" [hidden]="!addressInputVisible">  
               <div class="form-group">
-                <label class="center-block">Street:
-                  <input class="form-control" formControlName="street">
-                </label>
-                <label class="center-block">City:
-                  <input class="form-control" formControlName="city">
-                </label>
-                <label class="center-block">State:
-                  <input class="form-control" formControlName="state">
-                </label>
-                <label class="center-block">Zip:
-                  <input class="form-control" formControlName="zip">
-                </label>
+                <div id="street-input">
+                  <label class="center-block">Street:
+                    <input class="form-control" formControlName="street">
+                  </label>
+                </div>
+                <div id="city-input">
+                  <label class="center-block">City:
+                    <input class="form-control" formControlName="city">
+                  </label>
+                </div>
+                <div id="state-input">
+                  <label class="center-block">State:
+                    <input class="form-control" formControlName="state">
+                  </label>
+                </div>
+                <div id="zip-input">
+                  <label class="center-block">Zip:
+                    <input class="form-control" formControlName="zip">
+                  </label>
+                </div>
               </div>
             </div>
             <div formArrayName="holes">
@@ -33,21 +41,29 @@
                   <div class="hole-number-container">
                     <h4>Hole {{hole.controls.number.value}}</h4>
                   </div>
-                  <label class="center-block">Par:
-                    <input class="form-control" formControlName="par">
-                  </label>
-                  <div class="error" *ngIf="!hole.controls.par.valid">Invalid par value</div>
-                  <label class="center-block">Distance:
-                    <input class="form-control" formControlName="distance">
-                  </label>
-                  <div class="error" *ngIf="!hole.controls.distance.valid">Invalid distance value</div>
-                  <label class="center-block">Elevation:
-                    <input class="form-control" formControlName="elevation">
-                  </label>
-                  <div class="error" *ngIf="!hole.controls.elevation.valid  && hole.controls.elevation.dirty">Invalid elevation value</div>
-                  <label class="center-block">Description:
-                    <textarea class="form-control" formControlName="description" rows="5" type="text"></textarea>
-                  </label>
+                  <div id="par-input">
+                    <label class="center-block">Par:
+                      <input class="form-control" formControlName="par">
+                    </label>
+                    <div class="error" *ngIf="!hole.controls.par.valid">Invalid par value</div>
+                  </div>
+                  <div id="distance-input">
+                    <label class="center-block">Distance:
+                      <input class="form-control" formControlName="distance">
+                    </label>
+                    <div class="error" *ngIf="!hole.controls.distance.valid">Invalid distance value</div>
+                  </div>
+                  <div id="elevation-input">
+                    <label class="center-block">Elevation:
+                      <input class="form-control" formControlName="elevation">
+                    </label>
+                    <div class="error" *ngIf="!hole.controls.elevation.valid && hole.controls.elevation.dirty">Invalid elevation value</div>
+                  </div>
+                  <div id="description-input">
+                    <label class="center-block">Description:
+                      <textarea class="form-control" formControlName="description" rows="5" type="text"></textarea>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
