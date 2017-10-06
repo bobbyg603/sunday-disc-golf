@@ -18,7 +18,7 @@ describe('sundaydiscgolf App', () => {
     const links = [];
     links.push(page.navbar.element(By.linkText("Home")));
     links.push(page.navbar.element(By.linkText("Courses")));
-    links.push(page.navbar.element(By.linkText("Scores")));
+    links.push(page.navbar.element(By.linkText("Scorecards")));
     links.push(page.navbar.element(By.linkText("Leaderboard")));
     links.push(page.navbar.element(By.linkText("Logout")));
     expect(page.navbar.getText()).toContain('Sunday Disc Golf');
@@ -33,8 +33,8 @@ describe('sundaydiscgolf App', () => {
   });
 
   it('should navigate to the scores page', () => {
-    element(By.linkText("Scores")).click();
-    expect(element(By.css("h1")).getText()).toContain("Scores");
+    element(By.linkText("Scorecards")).click();
+    expect(element(By.css("h1")).getText()).toContain("Scorecards");
   });
 
   it('should navigate to the leaderboard page', () => {

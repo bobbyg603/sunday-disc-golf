@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.resetCurrentError();
-    this.loginService.login(username, password, "scores");
+    this.loginService.login(username, password, "scorecards");
   }
 
   navigateToSignUp() {

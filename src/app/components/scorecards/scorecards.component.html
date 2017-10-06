@@ -1,0 +1,18 @@
+<div id="coursesComponentRoot">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 style="display:inline">{{title}}</h1>
+        &nbsp;
+        <a routerLink="/scorecards/new" routerLinkActive="active">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let scorecard of scorecards">
+      <app-scorecard [scorecard]="scorecard"></app-scorecard>
+    </div>
+  </div>
+</div>

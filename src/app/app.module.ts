@@ -7,18 +7,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
-import { ScoresComponent } from './components/scores/scores.component';
+import { AddCourseComponent } from './components/add/course/add-course.component';
+import { CourseComponent } from './components/courses/course/course.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { CoursesService } from './services/courses.service';
+import { AddScorecardComponent } from './components/add/scorecard/add-scorecard.component';
+import { ScorecardComponent } from './components/scorecards/scorecard/scorecard.component';
+import { ScorecardsComponent } from './components/scorecards/scorecards.component';
+import { ScorecardsService } from './services/scorecards.service';
 import { PlayersComponent } from './components/players/players.component';
-import { ScorecardComponent } from './components/scorecard/scorecard.component';
+import { PlayersService } from './services/players.service';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
-import { CourseComponent } from './components/courses/course/course.component';
-import { AddCourseComponent } from './components/add/course/add-course.component';
 import { AuthenticationService } from './services/authentication.service';
-import { CoursesService } from './services/courses.service';
-import { PlayersService } from './services/players.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,8 +30,9 @@ const appRoutes: Routes = [
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'players', component: PlayersComponent },
-  { path: 'scores', component: ScoresComponent },
+  { path: 'scorecards', component: ScorecardsComponent },
   { path: 'courses/new', component: AddCourseComponent, },
+  { path: 'scorecards/new', component: AddScorecardComponent, },
 ];
 
 @NgModule({
@@ -37,14 +40,15 @@ const appRoutes: Routes = [
     AppComponent,
     PlayersComponent,
     CoursesComponent,
-    ScoresComponent,
+    ScorecardsComponent,
     ScorecardComponent,
     LeaderboardComponent,
     HomeComponent,
     LoginComponent,
     SignUpComponent,
     CourseComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    AddScorecardComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -60,7 +64,8 @@ const appRoutes: Routes = [
   providers: [
     AuthenticationService,
     CoursesService,
-    PlayersService
+    PlayersService,
+    ScorecardsService
   ],
   bootstrap: [AppComponent]
 })
