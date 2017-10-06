@@ -1,8 +1,77 @@
 <div class="container-fluid">
-    <h1>{{title}}</h1>
-    <div class="row">
-      <div class="col-sm-10 col-sm-offset-1">
-          <router-outlet></router-outlet>
+  <h1>{{title}}</h1>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <div class="input-container">
+        <form class="form-add-course" [formGroup]="newCourseForm" novalidate>
+          <div class="form-group">
+            <div id="name-input" [hidden]="!nameInputVisible">
+              <label class="center-block">Name:
+                <input class="form-control" formControlName="name">
+              </label>
+              <div class="error" *ngIf="!name.valid">Name is required</div>
+            </div>
+            <div formGroupName="address" [hidden]="!addressInputVisible">  
+              <div class="form-group">
+                <div id="street-input">
+                  <label class="center-block">Street:
+                    <input class="form-control" formControlName="street">
+                  </label>
+                </div>
+                <div id="city-input">
+                  <label class="center-block">City:
+                    <input class="form-control" formControlName="city">
+                  </label>
+                </div>
+                <div id="state-input">
+                  <label class="center-block">State:
+                    <input class="form-control" formControlName="state">
+                  </label>
+                </div>
+                <div id="zip-input">
+                  <label class="center-block">Zip:
+                    <input class="form-control" formControlName="zip">
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div formArrayName="holes">
+              <div *ngFor="let hole of holes.controls; let i=index" [formGroupName]="i" >
+                <div [hidden]="!holeInputVisible(i)">
+                  <div class="hole-number-container">
+                    <h4>Hole {{hole.controls.number.value}}</h4>
+                  </div>
+                  <div id="par-input">
+                    <label class="center-block">Par:
+                      <input class="form-control" formControlName="par">
+                    </label>
+                    <div class="error" *ngIf="!hole.controls.par.valid">Invalid par value</div>
+                  </div>
+                  <div id="distance-input">
+                    <label class="center-block">Distance:
+                      <input class="form-control" formControlName="distance">
+                    </label>
+                    <div class="error" *ngIf="!hole.controls.distance.valid">Invalid distance value</div>
+                  </div>
+                  <div id="elevation-input">
+                    <label class="center-block">Elevation:
+                      <input class="form-control" formControlName="elevation">
+                    </label>
+                    <div class="error" *ngIf="!hole.controls.elevation.valid && hole.controls.elevation.dirty">Invalid elevation value</div>
+                  </div>
+                  <div id="description-input">
+                    <label class="center-block">Description:
+                      <textarea class="form-control" formControlName="description" rows="5" type="text"></textarea>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary form-control" *ngIf="holes.length < 18  && newCourseForm.valid" (click)="next()">Next</button>
+            <button class="btn btn-success form-control" *ngIf="(holes.length == 9 || holes.length == 18) && newCourseForm.valid" (click)="done()">Done</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

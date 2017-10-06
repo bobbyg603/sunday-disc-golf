@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseBuilderEventService, CourseBuilderEvent, CourseBuilderEventType } from '../../../services/coursebuilderevent.service';
 import { Hole } from '../../../entities/hole.entity';
 import { CoursesService } from '../../../services/courses.service';
 import { Course } from '../../../entities/course.entity';
 import { Address } from '../../../entities/address.entity';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'add-course',
@@ -14,77 +14,90 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./add-course.component.css']
 
 })
-export class AddCourseComponent implements OnInit, OnDestroy {
+export class AddCourseComponent implements OnInit {
 
   title = "New Course";
+  currentError = "";
 
-  courseBuilderEventSubscription: Subscription;
-  doneSubscription: Subscription;
+  newCourseForm: FormGroup;
 
-  courseAddress: Address;
-  courseName: string;
-  courseHoles: Array<Hole> = [];
-  done: boolean = false;
+  nameInputVisible = true;
+  addressInputVisible = false;
 
-  constructor(private courseBuilderEventService: CourseBuilderEventService,
+  readonly PAR_NUMBER_PATTERN = "[2-7]";
+  readonly ANY_NUMBER_PATTERN = "^[0-9]+$";
+  readonly PLUS_OR_MINUS_NUMBER_PATTERN = "^[\+\-][0-9]+$";
+
+  constructor(private formBuilder: FormBuilder,
     private coursesService: CoursesService,
     private router: Router) { }
 
   ngOnInit() {
-    this.courseBuilderEventSubscription = this.courseBuilderEventService.getObservable().subscribe((event) => {
-      switch (event.type) {
-        case CourseBuilderEventType.SetAddress: this.setAddress(event.data as Address); break;
-        case CourseBuilderEventType.SetName: this.setName(event.data as string); break;
-        case CourseBuilderEventType.AddHole: this.addHole(event.data as Hole); break;
-        default:
-          this.done = true;
-          this.addHole(event.data as Hole);
-          this.doneSubscription = this.createCourse().subscribe(result => {
-            this.navigateToCourses();
-          });
-          break;
+    this.createForm();
+  }
+
+  createForm() {
+    this.newCourseForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      address: this.formBuilder.group(new Address()),
+      holes: this.formBuilder.array([])
+    })
+  }
+
+  holeInputVisible(index) {
+    return this.holes.length - 1 == index;
+  }
+
+  next() {
+    if (this.newCourseForm.valid) {
+      if (this.nameInputVisible) {
+        this.nameInputVisible = false;
+        this.addressInputVisible = true;
+      } else if (this.addressInputVisible) {
+        this.addressInputVisible = false;
+        this.addHole();
+      } else {
+        this.addHole();
       }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.courseBuilderEventSubscription.unsubscribe();
-    this.doneSubscription.unsubscribe();
-  }
-
-  setName(name: string) {
-    this.courseName = name;
-    this.router.navigate(['courses/new/address']);
-  }
-
-  setAddress(location: Address) {
-    this.courseAddress = location;
-    this.navigateToNextHole();
-  }
-
-  addHole(hole: Hole) {
-    this.courseHoles.push(hole);
-    if (!this.done) {
-      this.navigateToNextHole();
     }
   }
 
-  navigateToNextHole() {
-    const nextHoleNumber = this.courseHoles.length + 1;
-    this.router.navigate(['courses/new/hole/' + nextHoleNumber])
+  done() {
+    const courseFormAny = <any>this.newCourseForm.value;
+    const name = courseFormAny.name;
+    const holes = courseFormAny.holes.map(hole => new Object({
+      number: +hole.number,
+      par: +hole.par,
+      distance: +hole.distance,
+      elevation: hole.elevation,
+      description: hole.description
+    }));
+    const street = courseFormAny.address.street;
+    const city = courseFormAny.address.city;
+    const state = courseFormAny.address.state;
+    const zip = courseFormAny.address.zip;
+    const newCourse = new Course(name, holes, street, city, state, zip);
+    this.coursesService.create(newCourse).subscribe(response => {
+      console.log(response);
+      this.router.navigate(["/courses"]);
+    });
   }
 
-  navigateToCourses() {
-    this.router.navigate(['courses']);
+  addHole() {
+    this.holes.push(this.formBuilder.group({
+      number: this.holes.length + 1,
+      par: ['', Validators.compose([Validators.required, Validators.pattern(this.PAR_NUMBER_PATTERN)])],
+      distance: ['', Validators.compose([Validators.required, Validators.pattern(this.ANY_NUMBER_PATTERN)])],
+      elevation: ['', Validators.pattern(this.PLUS_OR_MINUS_NUMBER_PATTERN)],
+      description: ['', Validators.nullValidator]
+    }));
   }
 
-  createCourse(): Observable<Object> {
-    const newCourse = new Course(this.courseName,
-      this.courseHoles,
-      this.courseAddress.street,
-      this.courseAddress.city,
-      this.courseAddress.state,
-      this.courseAddress.zip)
-    return this.coursesService.create(newCourse);
+  get holes(): FormArray {
+    return this.newCourseForm.get("holes") as FormArray;
+  }
+
+  get name(): FormControl {
+    return this.newCourseForm.get("name") as FormControl;
   }
 }
