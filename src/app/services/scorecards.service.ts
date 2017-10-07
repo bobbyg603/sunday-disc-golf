@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Scorecard, PlayerScoresMap } from '../entities/scorecard.entity';
+import { Scorecard, TeamScoresMap } from '../entities/scorecard.entity';
 import { Hole } from '../entities/hole.entity';
 import { Course } from '../entities/course.entity';
 import { Player } from '../entities/player.entity';
@@ -35,10 +35,12 @@ export class ScorecardsService {
       const hole = new Hole(1, 3, 300);
       const holes = [hole];
       const course = new Course("foobar international", holes);
-      const player = new Player("foobar9", "foobar9");
-      const players = [player];
-      const score = new Score(player, holes[0], 3);
+      const player1 = new Player("foobar9", "foobar9");
+      const player2 = new Player("bobbyg603", "bobbyg603");
+      const player3 = new Player("lil_jake", "lil_jake");
+      const player4 = new Player("saynotwice", "saynotwice");
+      const score = new Score(course, holes[0], 3);
       const scores = [score];
-      return new Scorecard(course, [new PlayerScoresMap(players[0], scores)]);
+      return new Scorecard(course, [new TeamScoresMap([player1, player2], scores), new TeamScoresMap([player3, player4], scores)]);
     }
 }

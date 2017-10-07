@@ -8,32 +8,32 @@
         <td class="course-table-header">
           <b>Distance</b>
         </td>
-        <td class="course-table-cell text-align-center" *ngFor="let hole of scorecard.course.holes">
-          <b>{{hole.distance}}</b>
+        <td class="course-table-cell text-align-center">
+          <b>{{totalDistance}}</b>
         </td>
       </tr>
       <tr class="course-table-row">
         <td class="course-table-header">
-          <b>Hole</b>
+          <b>Holes</b>
         </td>
-        <td class="couse-table-cell text-align-center" *ngFor="let hole of scorecard.course.holes">
-          <b>{{hole.number}}</b>
+        <td class="couse-table-cell text-align-center">
+          <b>{{totalHoles}}</b>
         </td>
       </tr>
       <tr class="course-table-row">
         <td class="course-table-header">
           <b>Par</b>
         </td>
-        <td class="course-table-cell text-align-center" *ngFor="let hole of scorecard.course.holes">
-          <b>{{hole.par}}</b>
+        <td class="course-table-cell text-align-center">
+          <b>{{totalPar}}</b>
         </td>
       </tr>
-      <tr *ngFor="let playerScoreMap of scorecard.scores">
-        <td class="course-table-header">
-          {{playerScoreMap.player.username}}
+      <tr class="course-table-row" *ngFor="let teamScoreMap of scorecard.scores">
+        <td class="course-table-cell">
+          <span *ngFor="let player of teamScoreMap.players">{{player.username}} </span>
         </td>
-        <td *ngFor="let score of playerScoreMap.scores" class="course-table-cell text-align-center">
-          {{score.score}}
+        <td class="course-table-cell text-align-center">
+          {{teamScoreMap.totalScore}}
         </td>
       </tr>
     </table>

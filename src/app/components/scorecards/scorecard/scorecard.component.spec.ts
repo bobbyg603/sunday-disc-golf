@@ -4,8 +4,9 @@ import { ScorecardComponent } from './scorecard.component';
 import { Course } from "../../../entities/course.entity";
 import { Hole } from "../../../entities/hole.entity";
 import { Score } from "../../../entities/score.entity";
-import { Scorecard, PlayerScoresMap } from "../../../entities/scorecard.entity";
+import { Scorecard, TeamScoresMap } from "../../../entities/scorecard.entity";
 import { Player } from "../../../entities/player.entity";
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ScorecardComponent', () => {
   let component: ScorecardComponent;
@@ -13,9 +14,10 @@ describe('ScorecardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScorecardComponent ]
+      imports: [ReactiveFormsModule],
+      declarations: [ScorecardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -42,8 +44,8 @@ describe('ScorecardComponent', () => {
     const course = new Course("foobar international", holes);
     const player = new Player("foobar9", "foobar9");
     const players = [player];
-    const score = new Score(player, holes[0], 3);
+    const score = new Score(course, holes[0], 3);
     const scores = [score];
-    return new Scorecard(course, [new PlayerScoresMap(players[0], scores)]);
+    return new Scorecard(course, [new TeamScoresMap(players, scores)]);
   }
 });

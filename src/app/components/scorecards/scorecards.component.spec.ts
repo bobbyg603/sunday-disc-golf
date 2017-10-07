@@ -7,7 +7,7 @@ import { CoursesService } from '../../services/courses.service';
 import { PlayersService } from '../../services/players.service';
 import { Player } from "../../entities/player.entity";
 import { Score } from "../../entities/score.entity";
-import { Scorecard, PlayerScoresMap } from "../../entities/scorecard.entity";
+import { Scorecard, TeamScoresMap } from "../../entities/scorecard.entity";
 import { ScorecardComponent } from "../../components/scorecards/scorecard/scorecard.component";
 import { ScorecardsComponent } from "../../components/scorecards/scorecards.component";
 import { HttpClientModule } from '@angular/common/http';
