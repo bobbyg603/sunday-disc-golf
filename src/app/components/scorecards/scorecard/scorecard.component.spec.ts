@@ -44,7 +44,7 @@ describe('ScorecardComponent', () => {
     const course = new Course("foobar international", holes);
     const player = new Player("foobar9", "foobar9");
     const players = [player];
-    const score = new Score(course, holes[0], 3);
+    const score = new Score(holes[0], 3);
     const scores = [score];
     return new Scorecard(course, [new TeamScoresMap(players, scores)]);
   }

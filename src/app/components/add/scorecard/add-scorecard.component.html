@@ -4,11 +4,30 @@
     <div class="col-sm-10 col-sm-offset-1">
       <div class="input-container">
         <form class="form-add-scorecard" [formGroup]="newScorecardForm" novalidate>
-        <label class="center-block">Course:
-          <input class="form-control" formControlName="course">
-        </label>
+          <div class="form-group" [hidden]="!courseNameInputVisible">
+            <label for="course">Course</label>
+            <select class="form-control" formControlName="course" required>
+              <option *ngFor="let course of availableCourses" [value]="course">{{course.name}}</option>
+            </select>
+          </div>
+          <div class="form-group" [hidden]="!teamInputVisible">
+            <label>Teams</label>
+              <label for="player">Player</label>
+              <select #playerInput class="form-control" required>
+                <option *ngFor="let player of availablePlayers" [value]="player.username">{{player.username}}</option>
+              </select>
+              <br/>
+              <div [hidden]="!addTeamButtonVisible">
+                <button class="btn btn-success" (click)="addTeam()">Add Team</button>
+              </div>
+              <div [hidden]="!addPlayerButtonVisible">
+              <button class="btn btn-success" (click)="addPlayer(playerInput.value)">Add Player</button>
+            </div>
+          </div>
         <button class="btn btn-primary form-control" *ngIf="newScorecardForm.valid" (click)="next()">Next</button>
         </form>
+        <p>Form value: {{ newScorecardForm.value | json }}</p>
+        <p>Form status: {{ newScorecardForm.status | json }}</p>
       </div>
     </div>
   </div>

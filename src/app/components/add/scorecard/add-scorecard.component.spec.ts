@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ScorecardsService } from '../../../services/scorecards.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CoursesService } from '../../../services/courses.service';
+import { PlayersService } from '../../../services/players.service';
 
 describe('AddScorecardComponent', () => {
   let component: AddScorecardComponent;
@@ -18,7 +20,11 @@ describe('AddScorecardComponent', () => {
         RouterTestingModule
       ],
       declarations: [AddScorecardComponent],
-      providers: [ScorecardsService]
+      providers: [
+        ScorecardsService,
+        CoursesService,
+        PlayersService
+      ]
     })
       .compileComponents();
   }));

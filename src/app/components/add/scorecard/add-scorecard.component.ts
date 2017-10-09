@@ -6,6 +6,8 @@ import { CoursesService } from '../../../services/courses.service';
 import { Router } from '@angular/router';
 import { ScorecardsService } from '../../../services/scorecards.service';
 import { Scorecard, TeamScoresMap } from '../../../entities/scorecard.entity';
+import { Player } from '../../../entities/player.entity';
+import { PlayersService } from '../../../services/players.service';
 
 @Component({
   selector: 'add-scorecard',
@@ -15,45 +17,59 @@ import { Scorecard, TeamScoresMap } from '../../../entities/scorecard.entity';
 export class AddScorecardComponent implements OnInit {
   title = "New Scorecard";
   currentError = "";
-
+  
   newScorecardForm: FormGroup;
+  availableCourses: Array<Course>;
+  availablePlayers: Array<Player>;
 
-  nameInputVisible = true;
-  addressInputVisible = false;
+  courseNameInputVisible = true;
+  teamInputVisible = false;
+  addPlayerButtonVisible = false;
+  addTeamButtonVisible = true;
+
+  scoreMapsPatch: Array<TeamScoresMap> = [new TeamScoresMap([], [])];
 
   readonly PAR_NUMBER_PATTERN = "[2-7]";
   readonly ANY_NUMBER_PATTERN = "^[0-9]+$";
   readonly PLUS_OR_MINUS_NUMBER_PATTERN = "^[\+\-][0-9]+$";
 
   constructor(private formBuilder: FormBuilder,
+    private coursesService: CoursesService,
+    private playersService: PlayersService,
     private scorecardsService: ScorecardsService,
     private router: Router) { }
 
   ngOnInit() {
+    this.coursesService.list().subscribe(courses => {
+      this.availableCourses = <Array<Course>>courses;
+    });
+    this.playersService.list().subscribe(players => {
+      this.availablePlayers = <Array<Player>>players;
+    })
     this.createForm();
   }
 
   createForm() {
     this.newScorecardForm = this.formBuilder.group({
       course: ["", Validators.required],
-      scorecards: this.formBuilder.array([])
+      scoreMaps: this.formBuilder.array([])
     })
   }
 
   holeInputVisible(index) {
-    return this.scorecards.length - 1 == index;
+    return this.scoreMaps.length - 1 == index;
   }
 
   next() {
     if (this.newScorecardForm.valid) {
-      if (this.nameInputVisible) {
-        this.nameInputVisible = false;
-        this.addressInputVisible = true;
-      } else if (this.addressInputVisible) {
-        this.addressInputVisible = false;
-        this.addScorecard();
+      if (this.courseNameInputVisible) {
+        this.courseNameInputVisible = false;
+        this.teamInputVisible = true;
+      } else if (this.teamInputVisible) {
+        this.teamInputVisible = false;
+        this.addScore();
       } else {
-        this.addScorecard();
+        this.addScore();
       }
     }
   }
@@ -61,28 +77,49 @@ export class AddScorecardComponent implements OnInit {
   done() {
     const courseFormAny = <any>this.newScorecardForm.value;
     const course = courseFormAny.course;
-    const scorecards = courseFormAny.scorecards.map(scorecard => new Object({
-      // TODO BG
-    }));
-    const newScorecard = new Scorecard(new Course("todobg", []), []);
+    const scores = courseFormAny.scores; // TODO BG coerce object type
+    const newScorecard = new Scorecard(course, scores);
     this.scorecardsService.create(newScorecard).subscribe(response => {
       console.log(response);
       this.router.navigate(["/scorecards"]);
     });
   }
 
-  addScorecard() {
-    this.scorecards.push(this.formBuilder.group({
-      number: this.scorecards.length + 1,
-      par: ['', Validators.compose([Validators.required, Validators.pattern(this.PAR_NUMBER_PATTERN)])],
-      distance: ['', Validators.compose([Validators.required, Validators.pattern(this.ANY_NUMBER_PATTERN)])],
-      elevation: ['', Validators.pattern(this.PLUS_OR_MINUS_NUMBER_PATTERN)],
-      description: ['', Validators.nullValidator]
+  addTeam() {
+    // TODO BG move
+    this.addPlayerButtonVisible = true;
+    this.addTeamButtonVisible = false;
+    this.scoreMaps.push(this.formBuilder.group({
+      players: [[], Validators.required],
+      scores: [[], Validators.nullValidator]
     }));
   }
 
-  get scorecards(): FormArray {
-    return this.newScorecardForm.get("scorecards") as FormArray;
+  addPlayer(username: string) {
+    const newPlayer = this.findPlayerByUsername(username);
+    if(!this.scoreMapsPatch[this.scoreMapsPatch.length-1].players.length) {
+      this.scoreMapsPatch = [new TeamScoresMap([newPlayer], [])];
+    } else {
+      this.scoreMapsPatch[this.scoreMapsPatch.length-1].players.push(newPlayer);
+    }
+    this.availablePlayers = this.availablePlayers.filter(player => player.username != username);
+    this.updateScoreMaps();
+  }
+
+  findPlayerByUsername(username: string) {
+    return this.availablePlayers.find(player => player.username == username);
+  }
+
+  updateScoreMaps() {
+    this.scoreMaps.patchValue(this.scoreMapsPatch);
+  }
+
+  addScore() {
+
+  }
+
+  get scoreMaps(): FormArray {
+    return this.newScorecardForm.get("scoreMaps") as FormArray;
   }
 
   get name(): FormControl {

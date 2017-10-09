@@ -11,7 +11,7 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class ScorecardsService {
   
-    readonly Scorecards_URL = "todobg";
+    readonly Scorecards_URL = "https://nmfmh15dp5.execute-api.us-east-1.amazonaws.com/dev";
   
     constructor(private httpClient: HttpClient) { }
   
@@ -27,9 +27,9 @@ export class ScorecardsService {
     }
   
     list(): Observable<Object>  {
-      // TODO BG enable
-      //return this.httpClient.get(this.Scorecards_URL + "/scorecards");
-      return Observable.of([this.createFakeScorecard()]);
+      return this.httpClient.get(this.Scorecards_URL + "/scorecards");
+      // TODO BG remove
+      // return Observable.of([this.createFakeScorecard()]);
     }
     createFakeScorecard(): Scorecard {
       const hole = new Hole(1, 3, 300);
@@ -39,7 +39,7 @@ export class ScorecardsService {
       const player2 = new Player("bobbyg603", "bobbyg603");
       const player3 = new Player("lil_jake", "lil_jake");
       const player4 = new Player("saynotwice", "saynotwice");
-      const score = new Score(course, holes[0], 3);
+      const score = new Score(holes[0], 3);
       const scores = [score];
       return new Scorecard(course, [new TeamScoresMap([player1, player2], scores), new TeamScoresMap([player3, player4], scores)]);
     }

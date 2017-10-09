@@ -3,7 +3,7 @@ import { Course } from '../../entities/course.entity';
 import { Hole } from '../../entities/hole.entity';
 import { Subscription } from 'rxjs/Subscription';
 import { ScorecardsService } from '../../services/scorecards.service';
-import { Scorecard } from '../../entities/scorecard.entity';
+import { Scorecard, TeamScoresMap } from '../../entities/scorecard.entity';
 
 @Component({
   selector: 'app-scorecards',
@@ -25,6 +25,8 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.coursesListSubscription.unsubscribe();
+    if(this.scorecardsListSubscription) {
+      this.scorecardsListSubscription.unsubscribe();
+    }
   }
 }
