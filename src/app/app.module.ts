@@ -21,10 +21,12 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
 import { AuthenticationService } from './services/authentication.service';
+import { StoreComponent } from './components/store/store.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'store', component: StoreComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     SignUpComponent,
     CourseComponent,
     AddCourseComponent,
-    AddScorecardComponent
+    AddScorecardComponent,
+    StoreComponent
   ],
   imports: [
     BrowserAnimationsModule,
