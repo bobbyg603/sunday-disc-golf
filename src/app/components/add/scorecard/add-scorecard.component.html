@@ -39,8 +39,6 @@
           <button class="btn btn-primary form-control" [disabled]="!newScorecardForm.valid || currentTeam.length == 0" (click)="next();">Next</button>
           <button class="btn btn-success form-control" [disabled]="!newScorecardForm.valid" [hidden]="holeNumber % 9 != 0" (click)="done();">Done</button>
         </form>
-        <p>Form value: {{ newScorecardForm.value | json }}</p>
-        <p>Form status: {{ newScorecardForm.status | json }}</p>
       </div>
     </div>
   </div>
