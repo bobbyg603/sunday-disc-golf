@@ -11,15 +11,12 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class ScorecardsService {
   
-    readonly Scorecards_URL = "https://nmfmh15dp5.execute-api.us-east-1.amazonaws.com/dev";
+    readonly Scorecards_URL = "https://dy28q7w7x2.execute-api.us-east-1.amazonaws.com/dev";
   
     constructor(private httpClient: HttpClient) { }
   
     create(scorecard: Scorecard): Observable<Object> {
-      const payload = {
-        
-      }
-      return this.httpClient.post(this.Scorecards_URL + "/scorecards", payload);
+      return this.httpClient.post(this.Scorecards_URL + "/scorecards", scorecard);
     }
   
     get(id: string): Observable<Object>  {
@@ -35,12 +32,12 @@ export class ScorecardsService {
       const hole = new Hole(1, 3, 300);
       const holes = [hole];
       const course = new Course("foobar international", holes);
-      const player1 = new Player("foobar9", "foobar9");
-      const player2 = new Player("bobbyg603", "bobbyg603");
-      const player3 = new Player("lil_jake", "lil_jake");
-      const player4 = new Player("saynotwice", "saynotwice");
+      const username1 = "foobar9";
+      const username2 = "bobbyg603";
+      const username3 = "lil_jake";
+      const username4 = "saynotwice";
       const score = new Score(holes[0], 3);
       const scores = [score];
-      return new Scorecard(course, [new TeamScoresMap([player1, player2], scores), new TeamScoresMap([player3, player4], scores)]);
+      return new Scorecard(course, [new TeamScoresMap([username1, username2], scores), new TeamScoresMap([username3, username4], scores)]);
     }
 }

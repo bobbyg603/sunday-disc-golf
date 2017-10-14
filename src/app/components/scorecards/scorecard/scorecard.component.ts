@@ -11,8 +11,10 @@ import { Score } from "../../../entities/score.entity";
 export class ScorecardComponent implements OnInit {
 
   @Input() scorecard: Scorecard;
+  teamScoreMaps: Array<TeamScoresMap>;
 
   ngOnInit(): void {
+    this.teamScoreMaps = this.scorecard.scores.map(score => new TeamScoresMap(score.players, score.scores));
   }
 
   get totalDistance(): string {
@@ -29,5 +31,9 @@ export class ScorecardComponent implements OnInit {
 
   get totalHoles(): string {
     return this.scorecard.course.holes.length.toString();
+  }
+
+  get dateTime(): string {
+    return new Date(this.scorecard.id).toLocaleString();
   }
 }

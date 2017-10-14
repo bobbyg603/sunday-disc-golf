@@ -42,10 +42,10 @@ describe('ScorecardComponent', () => {
     const hole = new Hole(1, 3, 300);
     const holes = [hole];
     const course = new Course("foobar international", holes);
-    const player = new Player("foobar9", "foobar9");
-    const players = [player];
+    const username = "foobar9";
+    const usernames = [username];
     const score = new Score(holes[0], 3);
     const scores = [score];
-    return new Scorecard(course, [new TeamScoresMap(players, scores)]);
+    return new Scorecard(course, [new TeamScoresMap(usernames, scores)]);
   }
 });

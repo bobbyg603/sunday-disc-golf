@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormArray, Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from '../../../entities/course.entity';
 import { Address } from '../../../entities/address.entity';
@@ -8,39 +8,77 @@ import { ScorecardsService } from '../../../services/scorecards.service';
 import { Scorecard, TeamScoresMap } from '../../../entities/scorecard.entity';
 import { Player } from '../../../entities/player.entity';
 import { PlayersService } from '../../../services/players.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Score } from '../../../entities/score.entity';
 
 @Component({
   selector: 'add-scorecard',
   templateUrl: './add-scorecard.component.html',
   styleUrls: ['./add-scorecard.component.css']
 })
-export class AddScorecardComponent implements OnInit {
+export class AddScorecardComponent implements OnInit, OnDestroy {
   title = "New Scorecard";
   currentError = "";
 
   newScorecardForm: FormGroup;
+  allCourses: Array<Course> = new Array<Course>();
   availableCourses: Array<Course> = new Array<Course>();
   availablePlayers: Array<Player> = new Array<Player>();
   holeNumber = 1;
+
+  coursesListSubscription: Subscription;
+  playersListSubscription: Subscription;
+  scorecardCreateSubscription: Subscription;
+
+  setupFormVisible = true;
 
   readonly TWO_DIGIT_SCORE_PATTERN = /\b[0-9]{1,2}\b/;
 
   constructor(private formBuilder: FormBuilder,
     private coursesService: CoursesService,
-    private playersService: PlayersService) { }
+    private playersService: PlayersService,
+    private scorecardsService: ScorecardsService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.coursesService.list().subscribe(courses => {
+    this.coursesListSubscription = this.coursesService.list().subscribe(courses => {
       this.availableCourses = <Array<Course>>courses;
+      this.allCourses = <Array<Course>>courses;
     });
-    this.playersService.list().subscribe(players => {
+    this.playersListSubscription = this.playersService.list().subscribe(players => {
       this.availablePlayers = <Array<Player>>players;
     });
     this.newScorecardForm = this.createForm();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribeIfNotNull(this.coursesListSubscription);
+    this.unsubscribeIfNotNull(this.playersListSubscription);
+    this.unsubscribeIfNotNull(this.scorecardCreateSubscription);
+  }
+
+  unsubscribeIfNotNull(subscription: Subscription) {
+    if(subscription) {
+      subscription.unsubscribe();
+    }
+  }
+
   next() {
-    this.addScore();
+    if(this.setupFormVisible) {
+      this.setupFormVisible = false;
+    } else {
+      this.addScore();
+    }
+  }
+
+  done() {
+    const course = <Course>(this.allCourses.find(course => course.name == this.courseName));
+    const scores = <Array<TeamScoresMap>>(this.scoreMaps.value.map(scoreMap => new TeamScoresMap(scoreMap.team, scoreMap.scores.map(score => new Score(score.hole, parseInt(score.score))))));
+    const scorecard = new Scorecard(course, scores);
+    this.scorecardsService.create(scorecard).subscribe(result => {
+      this.router.navigate(['scorecards']);
+    });
+    // TODO BG error handling
   }
 
   createForm(): FormGroup {
@@ -82,6 +120,10 @@ export class AddScorecardComponent implements OnInit {
   addPlayer(username: string) {
     this.currentTeam.push(this.formBuilder.control(username));
     this.availablePlayers = this.availablePlayers.filter(player => player.username != username);
+  }
+
+  get courseName() {
+    return this.newScorecardForm.controls['course'].value;
   }
 
   get scoreMaps() {

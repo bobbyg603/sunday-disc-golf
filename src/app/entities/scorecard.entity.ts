@@ -8,7 +8,7 @@ export class Scorecard {
 }
 
 export class TeamScoresMap {
-    constructor(public players: Array<Player>, public scores: Array<Score>) { }
+    constructor(public players: Array<string>, public scores: Array<Score>) { }
 
     get totalScore(): string {
         return this.scores
