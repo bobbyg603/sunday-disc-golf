@@ -35,6 +35,7 @@ const appRoutes: Routes = [
   { path: 'scorecards', component: ScorecardsComponent },
   { path: 'courses/new', component: AddCourseComponent, },
   { path: 'scorecards/new', component: AddScorecardComponent, },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({
