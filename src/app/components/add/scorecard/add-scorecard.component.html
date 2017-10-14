@@ -12,11 +12,24 @@
           <select #playerSelect id="player" class="form-control" required>
             <option *ngFor="let player of availablePlayers" [value]="player.username">{{player.username}}</option>
           </select>
-          <div *ngFor="let team of teams">
-              <b>Team {{teams.indexOf(team)+1}}:</b> {{team}}
+          <div formArrayName="scoreMaps">
+            <div *ngFor="let scoreMap of scoreMaps.controls; let i=index;">
+              <b>Team {{i + 1}}:</b> {{scoreMap.value.team}}
+              <div formGroupName="{{i}}">
+                <div formArrayName="scores">
+                  <div *ngFor="let result of scoreMap.controls['scores'].controls; let j=index;">
+                    {{result.value.hole}} {{result.value.score}}
+                    <div formGroupName="{{j}}">
+                      <input [hidden]="j != holeNumber - 1" formControlName="score" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <button class="btn btn-success" [hidden]="availablePlayers.length == 0" (click)="addPlayer(playerSelect.value);">Add Player</button>
-          <button class="btn btn-success" [hidden]="team.length == 0 || availablePlayers.length == 0" (click)="addTeam();">Add Team</button>
+          <button class="btn btn-success" [hidden]="currentTeam.length == 0 || availablePlayers.length == 0" (click)="addTeam();">Add Team</button>
+          <button class="btn btn-primary form-control" [disabled]="!newScorecardForm.valid || currentTeam.length == 0" (click)="next();">Next</button>
         </form>
         <p>Form value: {{ newScorecardForm.value | json }}</p>
         <p>Form status: {{ newScorecardForm.status | json }}</p>

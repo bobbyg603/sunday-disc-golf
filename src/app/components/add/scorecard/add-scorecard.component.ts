@@ -21,11 +21,14 @@ export class AddScorecardComponent implements OnInit {
   newScorecardForm: FormGroup;
   availableCourses: Array<Course> = new Array<Course>();
   availablePlayers: Array<Player> = new Array<Player>();
+  holeNumber = 1;
+
+  readonly TWO_DIGIT_SCORE_PATTERN = /\b[0-9]{1,2}\b/;
 
   constructor(private formBuilder: FormBuilder,
     private coursesService: CoursesService,
-    private playersService: PlayersService) {}
-  
+    private playersService: PlayersService) { }
+
   ngOnInit(): void {
     this.coursesService.list().subscribe(courses => {
       this.availableCourses = <Array<Course>>courses;
@@ -36,33 +39,48 @@ export class AddScorecardComponent implements OnInit {
     this.newScorecardForm = this.createForm();
   }
 
+  next() {
+    this.addScore();
+  }
+
   createForm(): FormGroup {
     return this.newScorecardForm = this.formBuilder.group({
       course: ["", Validators.required],
       scoreMaps: this.formBuilder.array([
-        this.formBuilder.group({
-          team: this.formBuilder.array([]),
-          scores: this.formBuilder.array([])
-      })])
+        this.createScoreMap()
+      ])
     })
   }
 
+  createScoreMap(): FormGroup {
+    return this.formBuilder.group({
+      team: this.formBuilder.array([]),
+      scores: this.formBuilder.array([
+        this.createScore(this.holeNumber)
+      ])
+    })
+  }
+
+  createScore(holeNumber): FormGroup {
+    return this.formBuilder.group({
+      hole: this.formBuilder.control(holeNumber),
+      score: this.formBuilder.control("", Validators.pattern(this.TWO_DIGIT_SCORE_PATTERN))
+    });
+  }
+
   addScore() {
-    this.scores.push(this.formBuilder.group({
-      hole: 1,
-      score: 3
-    }));
+    this.holeNumber++;
+    this.scoreMaps.controls.forEach(scoreMap => {
+      (<FormArray>(<FormArray>scoreMap).controls['scores']).push(this.createScore(this.holeNumber));
+    });
   }
 
   addTeam() {
-    this.scoreMaps.push(this.formBuilder.group({
-      team: this.formBuilder.array([]),
-      scores: this.formBuilder.array([])
-    }));
+    this.scoreMaps.push(this.createScoreMap());
   }
 
   addPlayer(username: string) {
-    this.team.push(this.formBuilder.control(username));
+    this.currentTeam.push(this.formBuilder.control(username));
     this.availablePlayers = this.availablePlayers.filter(player => player.username != username);
   }
 
@@ -70,19 +88,15 @@ export class AddScorecardComponent implements OnInit {
     return this.newScorecardForm.get("scoreMaps") as FormArray;
   }
 
-  get scoreMap() {
-    return this.scoreMaps.at(this.scoreMaps.length-1) as FormArray;
+  get currentScoreMap() {
+    return this.scoreMaps.at(this.scoreMaps.length - 1) as FormArray;
   }
 
   get teams() {
     return this.scoreMaps.value.map(map => map.team);
   }
 
-  get team() {
-    return this.scoreMap.get("team") as FormArray;
-  }
-
-  get scores() {
-    return this.scoreMap.get("scores") as FormArray;
+  get currentTeam() {
+    return this.currentScoreMap.get("team") as FormArray;
   }
 }
