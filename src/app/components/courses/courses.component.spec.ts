@@ -5,7 +5,6 @@ import { DebugElement } from '@angular/core';
 
 import { CoursesService } from '../../services/courses.service';
 import { CoursesComponent } from './courses.component';
-import { ScorecardComponent } from '../scorecard/scorecard.component';
 import { Course } from '../../entities/course.entity';
 import { Hole } from '../../entities/hole.entity';
 import { CourseComponent } from './course/course.component';
@@ -20,8 +19,7 @@ describe('CoursesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         CourseComponent,
-        CoursesComponent,
-        ScorecardComponent
+        CoursesComponent
       ],
       imports: [
         FormsModule,

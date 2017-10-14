@@ -1,17 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CoursesService } from './courses.service';
+import { ScorecardsService } from './scorecards.service';
 import { HttpClientModule } from '@angular/common/http';
 
-describe('CoursesService', () => {
+describe('ScorecardService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [CoursesService]
+      providers: [ScorecardsService]
     });
   });
 
-  it('should be created', inject([CoursesService], (service: CoursesService) => {
+  it('should be created', inject([ScorecardsService], (service: ScorecardsService) => {
     expect(service).toBeTruthy();
   }));
 });

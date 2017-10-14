@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <b>{{scorecard.course.name}}</b>
+    {{dateTime}}
+  </div>
+  <div class="panel-body">
+    <table style="width:100%">
+      <tr class="course-table-row">
+        <td class="course-table-header">
+          <b>Distance</b>
+        </td>
+        <td class="course-table-cell text-align-center">
+          <b>{{totalDistance}}</b>
+        </td>
+      </tr>
+      <tr class="course-table-row">
+        <td class="course-table-header">
+          <b>Holes</b>
+        </td>
+        <td class="couse-table-cell text-align-center">
+          <b>{{totalHoles}}</b>
+        </td>
+      </tr>
+      <tr class="course-table-row">
+        <td class="course-table-header">
+          <b>Par</b>
+        </td>
+        <td class="course-table-cell text-align-center">
+          <b>{{totalPar}}</b>
+        </td>
+      </tr>
+      <tr class="course-table-row" *ngFor="let teamScoreMap of teamScoreMaps">
+        <td class="course-table-cell">
+          {{teamScoreMap.players}}
+        </td>
+        <td class="course-table-cell text-align-center">
+          {{teamScoreMap.totalScore}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

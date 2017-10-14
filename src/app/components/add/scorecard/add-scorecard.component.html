@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <h1>{{title}}</h1>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <div class="input-container">
+        <form class="form-add-scorecard" [formGroup]="newScorecardForm" novalidate>
+          <div [hidden]="!setupFormVisible">
+            <label for="course">Course</label>
+            <select id="course" class="form-control" formControlName="course" required>
+              <option *ngFor="let course of availableCourses" [value]="course.name">{{course.name}}</option>
+            </select>
+            <label for="player">Player</label>
+            <select #playerSelect id="player" class="form-control" required>
+              <option *ngFor="let player of availablePlayers" [value]="player.username">{{player.username}}</option>
+            </select>
+          </div>
+          <div [hidden]="setupFormVisible">
+            <h3>Hole {{holeNumber}}</h3>
+            <br/>
+          </div>
+          <div formArrayName="scoreMaps">
+            <div *ngFor="let scoreMap of scoreMaps.controls; let i=index;">
+              <b>Team {{i + 1}}:</b> {{scoreMap.value.team}}
+              <div formGroupName="{{i}}">
+                <div formArrayName="scores">
+                  <div *ngIf="!setupFormVisible">
+                    <div *ngFor="let result of scoreMap.controls['scores'].controls; let j=index;">
+                      <div formGroupName="{{j}}">
+                        <input class="form-control" [hidden]="j != holeNumber - 1" formControlName="score" placeholder="Score" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-success" [hidden]="availablePlayers.length == 0 || !setupFormVisible" (click)="addPlayer(playerSelect.value);">Add Player</button>
+          <button class="btn btn-success" [hidden]="currentTeam.length == 0 || availablePlayers.length == 0 || !setupFormVisible" (click)="addTeam();">Add Team</button>
+          <button class="btn btn-primary form-control" [disabled]="!newScorecardForm.valid || currentTeam.length == 0" (click)="next();">Next</button>
+          <button class="btn btn-success form-control" [disabled]="!newScorecardForm.valid" [hidden]="holeNumber % 9 != 0" (click)="done();">Done</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
