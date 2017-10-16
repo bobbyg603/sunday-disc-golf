@@ -32,7 +32,7 @@ export class AddScorecardComponent implements OnInit, OnDestroy {
 
   setupFormVisible = true;
 
-  readonly TWO_DIGIT_SCORE_PATTERN = /\b[0-9]{1,2}\b/;
+  readonly TWO_DIGIT_SCORE_PATTERN = /^\b[1-9]{1}[0-9]{0,1}\b$/;
 
   constructor(private formBuilder: FormBuilder,
     private coursesService: CoursesService,

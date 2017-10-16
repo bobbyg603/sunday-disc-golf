@@ -26,7 +26,7 @@
                   <div *ngIf="!setupFormVisible">
                     <div *ngFor="let result of scoreMap.controls['scores'].controls; let j=index;">
                       <div formGroupName="{{j}}">
-                        <input class="form-control" [hidden]="j != holeNumber - 1" formControlName="score" placeholder="Score" required>
+                        <input class="form-control" [hidden]="j != holeNumber - 1" formControlName="score" type="number" placeholder="Score" required>
                       </div>
                     </div>
                   </div>
