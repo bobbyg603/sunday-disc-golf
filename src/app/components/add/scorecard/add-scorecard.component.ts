@@ -41,14 +41,15 @@ export class AddScorecardComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.newScorecardForm = this.createForm();
     this.coursesListSubscription = this.coursesService.list().subscribe(courses => {
       this.availableCourses = <Array<Course>>courses;
       this.allCourses = <Array<Course>>courses;
+      this.course.setValue(this.availableCourses[0].name);
     });
     this.playersListSubscription = this.playersService.list().subscribe(players => {
       this.availablePlayers = <Array<Player>>players;
     });
-    this.newScorecardForm = this.createForm();
   }
 
   ngOnDestroy(): void {
@@ -122,8 +123,12 @@ export class AddScorecardComponent implements OnInit, OnDestroy {
     this.availablePlayers = this.availablePlayers.filter(player => player.username != username);
   }
 
+  get course() {
+    return this.newScorecardForm.get("course") as FormControl;
+  }
+
   get courseName() {
-    return this.newScorecardForm.controls['course'].value;
+    return this.course.value;
   }
 
   get scoreMaps() {
