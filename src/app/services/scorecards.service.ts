@@ -7,24 +7,25 @@ import { Player } from '../entities/player.entity';
 import { Score } from '../entities/score.entity';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ScorecardsService {
   
-    readonly Scorecards_URL = "https://dy28q7w7x2.execute-api.us-east-1.amazonaws.com/dev";
+    readonly Scorecards_URL = environment.scorecardsUrl;
   
     constructor(private httpClient: HttpClient) { }
   
     create(scorecard: Scorecard): Observable<Object> {
-      return this.httpClient.post(this.Scorecards_URL + "/scorecards", scorecard);
+      return this.httpClient.post(this.Scorecards_URL, scorecard);
     }
   
     get(id: string): Observable<Object>  {
-      return this.httpClient.get(this.Scorecards_URL + "/scorecards" + "/" + id);
+      return this.httpClient.get(this.Scorecards_URL + "/" + id);
     }
   
     list(): Observable<Object>  {
-      return this.httpClient.get(this.Scorecards_URL + "/scorecards");
+      return this.httpClient.get(this.Scorecards_URL);
       // TODO BG remove
       // return Observable.of([this.createFakeScorecard()]);
     }
