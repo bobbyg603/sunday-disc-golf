@@ -1,34 +1,62 @@
 <div class="container-fluid">
   <h1>{{title}}</h1>
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <div class="card">
+    <div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>Username:</b></div>
-        <div class="col-md-11"><input class="form-control" #usernameInput></div>
+        <div class="col-md-1">
+          <b>Username:</b>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control" #usernameInput>
+        </div>
       </div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>Password:</b></div>
-        <div class="col-md-11"><input class="form-control" #passwordInput></div>
+        <div class="col-md-1">
+          <b>Password:</b>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control" #passwordInput>
+        </div>
       </div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>First Name:</b></div>
-        <div class="col-md-11"><input class="form-control" #firstNameInput></div>
+        <div class="col-md-1">
+          <b>First Name:</b>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control" #firstNameInput>
+        </div>
       </div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>Last Name:</b></div>
-        <div class="col-md-11"><input class="form-control" #lastNameInput></div>
+        <div class="col-md-1">
+          <b>Last Name:</b>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control" #lastNameInput>
+        </div>
       </div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>Email:</b></div>
-        <div class="col-md-11"><input class="form-control" #emailInput></div>
+        <div class="col-md-1">
+          <b>Email:</b>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control" #emailInput>
+        </div>
       </div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>Phone:</b></div>
-        <div class="col-md-11"><input class="form-control" #phoneInput></div>
+        <div class="col-md-1">
+          <b>Phone:</b>
+        </div>
+        <div class="col-md-11">
+          <input class="form-control" #phoneInput>
+        </div>
       </div>
       <div class="row top-buffer">
-        <div class="col-md-1"><b>Bio:</b></div>
-        <div class="col-md-11"><textarea class="form-control" #bioInput></textarea></div>
+        <div class="col-md-1">
+          <b>Bio:</b>
+        </div>
+        <div class="col-md-11">
+          <textarea class="form-control" #bioInput></textarea>
+        </div>
       </div>
       <div class="row top-buffer">
         <div class="col-md-12 text-center">
@@ -44,16 +72,23 @@
       </div>
     </div>
   </div>
+  <br>
   <div *ngFor="let player of players">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card">
+      <div class="card-header">
         <b>{{player.username}}</b>
       </div>
-      <div class="panel-body">
-        <b>Name:</b> {{player.firstName}} {{player.lastName}}<br/>
-        <b>Email:</b> {{player.email}}<br/>
-        <b>Phone:</b> {{player.phone}}<br/>
-        <b>Bio:</b> {{player.bio}}<br/>
+      <div>
+        <b>Name:</b> {{player.firstName}} {{player.lastName}}
+        <br/>
+        <b>Email:</b> {{player.email}}
+        <br/>
+        <b>Phone:</b> {{player.phone}}
+        <br/>
+        <b>Bio:</b> {{player.bio}}
+        <br/>
+      </div>
     </div>
+    <br>
   </div>
 </div>

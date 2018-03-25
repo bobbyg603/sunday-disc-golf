@@ -1,0 +1,16 @@
+.card {
+    height: 500px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.player-names {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.player-scores {
+    font-size: 24px;
+}

@@ -3,11 +3,12 @@ import { Course } from '../entities/course.entity';
 import { Hole } from '../entities/hole.entity';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CoursesService {
 
-  readonly COURSES_URL = "https://d9j2m4xo32.execute-api.us-east-1.amazonaws.com/dev";
+  readonly COURSES_URL = environment.coursesUrl;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,14 +21,14 @@ export class CoursesService {
       state: course.state,
       zip: course.zip
     }
-    return this.httpClient.post(this.COURSES_URL + "/courses", payload);
+    return this.httpClient.post(this.COURSES_URL, payload);
   }
 
   get(courseName: string): Observable<Object>  {
-    return this.httpClient.get(this.COURSES_URL + "/courses" + "/" + courseName);
+    return this.httpClient.get(this.COURSES_URL + "/" + courseName);
   }
 
   list(): Observable<Object>  {
-    return this.httpClient.get(this.COURSES_URL + "/courses");
+    return this.httpClient.get(this.COURSES_URL);
   }
 }

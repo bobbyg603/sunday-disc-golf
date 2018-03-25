@@ -1,42 +1,42 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <b>{{scorecard.course.name}}</b>
-    {{dateTime}}
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-lg-3">
+        <b>{{scorecard.course.name}}</b>
+      </div>
+      <div class="col-lg-3">
+        {{dateTime}}
+      </div>
+      <div class="col-lg-2">
+        <b>Holes</b>
+        {{totalHoles}}
+      </div>
+      <div class="col-lg-2">
+        <b>Par</b>
+        {{totalPar}}
+      </div>
+      <div class="col-lg-2">
+        <b>Length</b>
+        {{totalDistance}}
+      </div>
+    </div>
   </div>
-  <div class="panel-body">
-    <table style="width:100%">
-      <tr class="course-table-row">
-        <td class="course-table-header">
-          <b>Distance</b>
-        </td>
-        <td class="course-table-cell text-align-center">
-          <b>{{totalDistance}}</b>
-        </td>
-      </tr>
-      <tr class="course-table-row">
-        <td class="course-table-header">
-          <b>Holes</b>
-        </td>
-        <td class="couse-table-cell text-align-center">
-          <b>{{totalHoles}}</b>
-        </td>
-      </tr>
-      <tr class="course-table-row">
-        <td class="course-table-header">
-          <b>Par</b>
-        </td>
-        <td class="course-table-cell text-align-center">
-          <b>{{totalPar}}</b>
-        </td>
-      </tr>
-      <tr class="course-table-row" *ngFor="let teamScoreMap of teamScoreMaps">
-        <td class="course-table-cell">
-          {{teamScoreMap.players}}
-        </td>
-        <td class="course-table-cell text-align-center">
-          {{teamScoreMap.totalScore}}
-        </td>
-      </tr>
-    </table>
+  <div class="card-body">
+    <ul>
+      <li *ngFor="let teamScoreMap of teamScoreMaps">
+        <div class="row">
+          <div class="col-lg-6">
+            <span class="player-names">
+              {{teamScoreMap.players.join(", ")}}
+            </span>
+          </div>
+          <div class="col-lg-6">
+            <span class="player-scores">
+              {{teamScoreMap.totalScore}}
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

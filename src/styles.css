@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
 .text-align-center {
     text-align: center
 }
@@ -22,4 +24,14 @@
 
 .course-table-cell {
     width: auto
+}
+
+.add-new {
+    color: green;
+    font-size: 48px;
+}
+
+a.add-new:hover {
+    font-weight: bold;
+    text-decoration: none;
 }

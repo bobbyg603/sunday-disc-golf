@@ -3,11 +3,12 @@ import { Player } from '../entities/player.entity';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class PlayersService {
 
-  readonly PLAYERS_URL = "https://tr3mlfuzz8.execute-api.us-east-1.amazonaws.com/dev/players";
+  readonly PLAYERS_URL = environment.playersUrl;
 
   constructor(private httpClient: HttpClient) { }
 

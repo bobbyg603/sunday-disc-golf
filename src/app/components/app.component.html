@@ -1,46 +1,48 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="navbar-header">
-    <div class="navbar-brand">
-      {{title}}
-    </div>
-    <button id="navbar-toggle-button" type="button" class="navbar-toggle" (click)="isCollapsed = !isCollapsed">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+<div class="fluid-container" style="padding-left: 0; padding-right: 0;">
+  <header class="navbar navbar-light navbar-fixed-top navbar-expand-lg">
+
+    {{title}}
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-  </div>
-  <div class="navbar-collapse" [class.collapse]="isCollapsed">
-    <ul *ngIf="isLoggedIn" class="nav navbar-nav navbar-right">
-      <li>
-        <a routerLink="/home" routerLinkActive="active">Home</a>
-      </li>
-      <li>
-        <a routerLink="/store" routerLinkActive="active">Store</a>
-      </li>
-      <li>
-        <a routerLink="/scorecards" routerLinkActive="active">Scorecards</a>
-      </li>
-      <li>
-        <a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
-      </li>
-      <li>
-        <a routerLink="/courses" routerLinkActive="active">Courses</a>
-      </li>
-      <li>
-        <a class="navbar-link" (click)="logout()">Logout</a>
-      </li>
-    </ul>
-    <ul *ngIf="!isLoggedIn" class="nav navbar-nav navbar-right">
-      <li>
-        <a routerLink="/home" routerLinkActive="active">Home</a>
-      </li>
-      <li>
-        <a routerLink="/store" routerLinkActive="active">Store</a>
-      </li>
-      <li>
-        <a class="navbar-link" (click)="login()">Login</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+
+    <div class="navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarContent">
+      <ul *ngIf="isLoggedIn" class="navbar-nav ml-auto">
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active" (click)="navbarCollapsed = true">Home</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['store']" routerLinkActive="active" (click)="navbarCollapsed = true">Store</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['scorecards']" routerLinkActive="active" (click)="navbarCollapsed = true">Scorecards</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['leaderboard']" routerLinkActive="active" (click)="navbarCollapsed = true">Leaderboard</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['courses']" routerLinkActive="active" (click)="navbarCollapsed = true">Courses</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" (click)="logout(); navbarCollapsed = true;">Logout</a>
+        </li>
+      </ul>
+      <ul *ngIf="!isLoggedIn" class="navbar-nav ml-auto">
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active" (click)="navbarCollapsed = true">Home</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['store']" routerLinkActive="active" (click)="navbarCollapsed = true">Store</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" (click)="login(); navbarCollapsed = true;">Login</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+</div>
+<!-- end bugsplat navbar -->
+
 <router-outlet></router-outlet>

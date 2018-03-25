@@ -9,13 +9,13 @@ import { AuthenticationService, LoginEvent, LoginEventType } from '../services/a
 })
 export class AppComponent implements OnInit {
   title = 'Sunday Disc Golf';
+  navbarCollapsed: boolean = true;
+
   // TODO BG replace with async pipe
   isLoggedIn = false;
-  isCollapsed = true;
-  context = this;
   
   constructor(private router: Router, private loginService: AuthenticationService) { }
-  
+
   ngOnInit(): void {
     this.isLoggedIn = this.loginService.isAuthenticated();
     this.loginService.getObservable().subscribe((loginEvent) => this.onLoginChanged(loginEvent));

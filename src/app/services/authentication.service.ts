@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
 
-  readonly TOKEN_KEY = "isLoggedIn";
-  readonly AUTH_URL = "https://ljhx07n27b.execute-api.us-east-1.amazonaws.com/dev/authenticate";
-  
+  readonly TOKEN_KEY = "token";
+  readonly AUTH_URL = environment.authUrl;
+
   loginServiceEventSubject: Subject<LoginEvent> = new Subject<LoginEvent>();
 
   constructor(private httpClient: HttpClient) { }
@@ -23,16 +24,13 @@ export class AuthenticationService {
   }
 
   login(username, password, redirectTo) {
-    const payload = {
+    this.httpClient
+      .post(this.AUTH_URL + "/player", {
         username,
         password
-    };
-    this.httpClient.post(this.AUTH_URL + "/player", payload)
+      })
       .subscribe(data => {
-        const isValid = data.hasOwnProperty("success")
-          && data.hasOwnProperty("message")
-          && data.hasOwnProperty("token")
-        if (isValid) {
+        if (data.hasOwnProperty("token")) {
           const response = <AuthenticateResponse>data;
           this.setToken(response.token);
           this.loginServiceEventSubject.next(new LoginEvent(LoginEventType.Login, "login success", redirectTo));
@@ -66,7 +64,7 @@ export enum LoginEventType {
 }
 
 export class LoginEvent {
-  constructor(public type: LoginEventType, public message: string, public redirectTo: string) {}
+  constructor(public type: LoginEventType, public message: string, public redirectTo: string) { }
 }
 
 // TODO BG move
