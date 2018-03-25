@@ -34,8 +34,8 @@ describe('ScorecardComponent', () => {
   it('should display scorecard', async(() => {
     const compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
-    expect(compiled.querySelector(".panel-heading").textContent).toContain("foobar international");
-    expect(compiled.querySelector(".panel-body").textContent).toContain("foobar9");
+    expect(compiled.querySelector(".card-header").textContent).toContain("foobar international");
+    expect(compiled.querySelector(".card-body").textContent).toContain("foobar9");
   }));
 
   function createFakeScorecard(): Scorecard {

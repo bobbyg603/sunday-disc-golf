@@ -27,23 +27,23 @@ describe('CourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display the course name in the panel-heading', () => {
+  it('should display the course name in the card-header', () => {
     compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector(".panel-heading").textContent).toContain(component.course.name);
+    expect(compiled.querySelector(".card-header").textContent).toContain(component.course.name);
   });
 
-  it('should display the course address in the panel-heading', () => {
+  it('should display the course address in the card-header', () => {
     compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector(".panel-heading").textContent).toContain(component.course.street);
-    expect(compiled.querySelector(".panel-heading").textContent).toContain(component.course.city);
-    expect(compiled.querySelector(".panel-heading").textContent).toContain(component.course.state);
-    expect(compiled.querySelector(".panel-heading").textContent).toContain(component.course.zip);
+    expect(compiled.querySelector(".card-header").textContent).toContain(component.course.street);
+    expect(compiled.querySelector(".card-header").textContent).toContain(component.course.city);
+    expect(compiled.querySelector(".card-header").textContent).toContain(component.course.state);
+    expect(compiled.querySelector(".card-header").textContent).toContain(component.course.zip);
   });
 
-  it('should display the course statistics in the panel-body', () => {
+  it('should display the course statistics in the card-body', () => {
     compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector(".panel-body").textContent).toContain(component.getTotalDistance());
-    expect(compiled.querySelector(".panel-body").textContent).toContain(component.getTotalPar());
+    expect(compiled.querySelector(".card-body").textContent).toContain(component.getTotalDistance());
+    expect(compiled.querySelector(".card-body").textContent).toContain(component.getTotalPar());
   });
 
   function createFakeCourse() {

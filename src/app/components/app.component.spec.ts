@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -13,7 +14,8 @@ describe('AppComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        HttpClientModule
+        HttpClientModule,
+        NgbModule.forRoot()
       ],
       providers: [
         AuthenticationService

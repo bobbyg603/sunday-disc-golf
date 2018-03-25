@@ -1,0 +1,9 @@
+.add-new {
+    color: green;
+    font-size: 48px;
+}
+
+a:hover {
+    font-weight: bold;
+    text-decoration: none;
+}

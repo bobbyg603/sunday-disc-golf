@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signup/signup.component';
 import { AuthenticationService } from './services/authentication.service';
 import { StoreComponent } from './components/store/store.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

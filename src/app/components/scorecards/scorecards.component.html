@@ -5,14 +5,15 @@
         <h1 style="display:inline">{{title}}</h1>
         &nbsp;
         <a routerLink="/scorecards/new" routerLinkActive="active">
-          <span class="glyphicon glyphicon-plus-sign"></span>
+          <span class="add-new">+</span>
         </a>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6" *ngFor="let scorecard of scorecards">
+    <div class="col-lg-6" *ngFor="let scorecard of scorecards">
       <app-scorecard [scorecard]="scorecard"></app-scorecard>
+      <br/>
     </div>
   </div>
 </div>
