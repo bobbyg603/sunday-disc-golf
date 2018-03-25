@@ -59,10 +59,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule
