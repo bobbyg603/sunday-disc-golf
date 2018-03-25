@@ -11,33 +11,33 @@
     <div class="navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarContent">
       <ul *ngIf="isLoggedIn" class="navbar-nav ml-auto">
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active">Home</a>
+          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active" (click)="navbarCollapsed = true">Home</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['store']" routerLinkActive="active">Store</a>
+          <a class="nav-link" [routerLink]="['store']" routerLinkActive="active" (click)="navbarCollapsed = true">Store</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['scorecards']" routerLinkActive="active">Scorecards</a>
+          <a class="nav-link" [routerLink]="['scorecards']" routerLinkActive="active" (click)="navbarCollapsed = true">Scorecards</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['leaderboard']" routerLinkActive="active">Leaderboard</a>
+          <a class="nav-link" [routerLink]="['leaderboard']" routerLinkActive="active" (click)="navbarCollapsed = true">Leaderboard</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['courses']" routerLinkActive="active">Courses</a>
+          <a class="nav-link" [routerLink]="['courses']" routerLinkActive="active" (click)="navbarCollapsed = true">Courses</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" (click)="logout()">Logout</a>
+          <a class="nav-link" (click)="logout(); navbarCollapsed = true;">Logout</a>
         </li>
       </ul>
       <ul *ngIf="!isLoggedIn" class="navbar-nav ml-auto">
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active">Home</a>
+          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active" (click)="navbarCollapsed = true">Home</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['store']" routerLinkActive="active">Store</a>
+          <a class="nav-link" [routerLink]="['store']" routerLinkActive="active" (click)="navbarCollapsed = true">Store</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" (click)="login()">Login</a>
+          <a class="nav-link" (click)="login(); navbarCollapsed = true;">Login</a>
         </li>
       </ul>
     </div>
